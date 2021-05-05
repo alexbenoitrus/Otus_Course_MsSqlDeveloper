@@ -39,7 +39,53 @@ InvoiceMonth | Peeples Valley, AZ | Medicine Lodge, KS | Gasport, NY | Sylvanite
 -------------+--------------------+--------------------+-------------+--------------+------------
 */
 
-напишите здесь свое решение
+DECLARE 
+    @UpperBorder     int = 6
+    , @LowerBorder   int = 2
+
+
+DROP TABLE IF EXISTS #DataForPivot
+CREATE TABLE #DataForPivot
+(
+    [CustomerName]    nvarchar(30)
+    , [InvoiceId]     int
+    , [InvoiceMonth]   nvarchar(max)
+)
+
+
+INSERT INTO #DataForPivot ([InvoiceId], [InvoiceMonth], [CustomerName])
+SELECT 
+    i.[InvoiceID]                                                            AS [InvoiceID]
+    , CONVERT(                                                               
+        varchar                                                              
+        , DATEFROMPARTS(YEAR(i.[InvoiceDate]), MONTH(i.[InvoiceDate]), 1)      
+        , 104 )                                                              AS [InvoiceMonth]
+    , SUBSTRING(                                                             
+        SUBSTRING(c.[CustomerName], 0, LEN(c.[CustomerName]))                
+        , CHARINDEX('(', c.[CustomerName]) + 1 
+        , LEN(c.[CustomerName]))                                             AS [CustomerName]
+FROM 
+    Sales.Customers c WITH (NOLOCK)
+    LEFT JOIN Sales.Invoices i WITH (NOLOCK) ON i.[CustomerID] = c.[CustomerID]
+WHERE 1=1
+    AND c.[CustomerID] BETWEEN @LowerBorder AND @UpperBorder
+
+
+SELECT 
+    [InvoiceMonth]
+    , [Sylvanite, MT], [Peeples Valley, AZ], [Medicine Lodge, KS], [Gasport, NY], [Jessie, ND]
+FROM
+    #DataForPivot d
+PIVOT 
+(
+    COUNT(InvoiceId) 
+    FOR CustomerName 
+        IN ([Sylvanite, MT], [Peeples Valley, AZ], [Medicine Lodge, KS], [Gasport, NY], [Jessie, ND])
+) AS PivotData
+
+DROP TABLE IF EXISTS #DataForPivot
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /*
 2. Для всех клиентов с именем, в котором есть "Tailspin Toys"
@@ -56,7 +102,29 @@ Tailspin Toys (Head Office) | Ribeiroville
 ----------------------------+--------------------
 */
 
-напишите здесь свое решение
+WITH DataForUnpivot ([CustomerName], [Address1], [Address2], [Address3], [Address4]) AS 
+(
+    SELECT
+        c.[CustomerName]
+        , c.[DeliveryAddressLine1]
+        , c.[DeliveryAddressLine2]
+        , c.[PostalAddressLine1]
+        , c.[PostalAddressLine2]
+    FROM
+        Sales.Customers c WITH (NOLOCK)
+    WHERE c.CustomerName LIKE '%Tailspin Toys%'
+)
+SELECT 
+    [CustomerName]
+    , [AddressLine]
+FROM DataForUnpivot
+UNPIVOT
+(
+    [AddressLine] FOR [UndisplayField]
+    IN ([Address1], [Address2], [Address3], [Address4])
+) AS [UnpivotData];
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /*
 3. В таблице стран (Application.Countries) есть поля с цифровым кодом страны и с буквенным.
@@ -74,11 +142,57 @@ CountryId | CountryName | Code
 ----------+-------------+-------
 */
 
-напишите здесь свое решение
+WITH DataForUnpivot ([CountryID], [CountryName], [Code1], [Code2]) AS
+(
+    SELECT
+        c.[CountryID]                              AS [CountryID]
+        , c.[CountryName]                          AS [CountryName]
+        , CONVERT(nvarchar, c.[IsoAlpha3Code])     AS [Code1]
+        , CONVERT(nvarchar, c.[IsoNumericCode])    AS [Code2]
+    FROM
+        Application.Countries c WITH (NOLOCK)
+)
+SELECT
+    [CountryID]
+    , [CountryName]
+    , [Code]
+FROM DataForUnpivot
+UNPIVOT 
+(
+    [Code] FOR [HiddenField]
+        IN ([Code1], [Code2])
+) AS UnpivotData;
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /*
 4. Выберите по каждому клиенту два самых дорогих товара, которые он покупал.
 В результатах должно быть ид клиета, его название, ид товара, цена, дата покупки.
 */
 
-напишите здесь свое решение
+DECLARE @TopSize int = 2;
+
+SELECT
+    c.[CustomerID]
+    , p.[Name]
+    , p.[ID]
+    , p.[Price]
+    , p.[Date]
+FROM 
+    Sales.Customers c WITH (NOLOCK)
+    CROSS APPLY 
+    (
+        SELECT TOP(@TopSize)
+            si.[StockItemName]   as [Name]
+            , si.[StockItemID]   as [ID]
+            , il.[UnitPrice]     as [Price]
+            , i.[InvoiceDate]    as [Date]
+        FROM 
+            Sales.Invoices i
+            LEFT JOIN Sales.[InvoiceLines] il WITH (NOLOCK)     ON il.[InvoiceID] = i.[InvoiceID]
+            LEFT JOIN Warehouse.[StockItems] si WITH (NOLOCK)   ON si.[StockItemID] = il.[StockItemID]
+        WHERE 1=1
+            AND i.[CustomerID] = c.[CustomerID]
+    ) AS p
+ORDER BY 
+    c.[CustomerID]
