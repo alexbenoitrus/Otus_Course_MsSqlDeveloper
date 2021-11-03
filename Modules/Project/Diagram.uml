@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>a9c206fc-7a93-411a-8f40-22d48219dfb7.DATABASE:test10</OriginalElement>
+  <nodes>
+    <node x="479.61935480877924" y="1248.6569699159813">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.AdditionalBusinessUnit</node>
+    <node x="636.1574341294042" y="806.4634699281179">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Communication.Channel</node>
+    <node x="808.0" y="2399.2565295370478">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Configuration.PresetType</node>
+    <node x="1336.9119830820553" y="1157.261767097299">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.AddressLevelType</node>
+    <node x="1298.3636111136605" y="2399.2565295370478">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Extension.Note</node>
+    <node x="818.0" y="1462.4788598789412">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.BusinessUnitType</node>
+    <node x="1175.0" y="1950.9464698305565">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.ProductOnEvent</node>
+    <node x="22.55626627672902" y="1563.5">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.UI.Session</node>
+    <node x="822.5" y="1672.5">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.BusinessDirectionType</node>
+    <node x="1502.0" y="2175.101499683802">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.ProductCatalogLevel</node>
+    <node x="773.5" y="948.4577197578826">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Communication.ChannelIdentificatorForBusinessUnit</node>
+    <node x="808.0" y="2175.101499683802">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.EventType</node>
+    <node x="234.18642950346623" y="1601.9767039683868">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.UI.User</node>
+    <node x="1255.3627955884558" y="2175.101499683802">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.ProductMeasurementType</node>
+    <node x="1478.0" y="1872.5">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.Product</node>
+    <node x="1473.3006424624723" y="2546.4208481394835">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Extension.HashtagAssign</node>
+    <node x="389.37309906983546" y="2399.2565295370478">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Configuration.BasePreset</node>
+    <node x="997.0065949950312" y="2175.101499683802">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.EventStatus</node>
+    <node x="1319.1136111136605" y="2715.5851667419192">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Configuration.NoteAllow</node>
+    <node x="1173.5" y="1366.9003139221338">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.ProductPriceByPerson</node>
+    <node x="1096.4265797648486" y="2546.4208481394835">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Extension.AttachmentAssign</node>
+    <node x="818.0" y="1872.5">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.Event</node>
+    <node x="1313.8636111136605" y="2546.4208481394835">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Extension.NoteAssign</node>
+    <node x="577.8096774043896" y="1950.9464698305565">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.EventInvite</node>
+    <node x="1473.0" y="1472.705795566316">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.ProductSpecialPriceLevel</node>
+    <node x="228.18642950346623" y="1418.5">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.UI.UserRole</node>
+    <node x="269.61935480877924" y="1839.5">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.Person</node>
+    <node x="23.05626627672902" y="2121.0314843255937">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.PersonStatus</node>
+    <node x="20.556266276728905" y="2399.2565295370478">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Log.Error</node>
+    <node x="1091.4265797648486" y="2399.2565295370478">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Extension.Attachment</node>
+    <node x="1477.3006424624723" y="2399.2565295370478">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Extension.Hashtag</node>
+    <node x="834.0" y="1208.4577197578824">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.BusinessUnit</node>
+    <node x="1130.5" y="1542.3808835486495">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.ProductPriceByBusinessUnit</node>
+    <node x="598.6865495349177" y="2399.2565295370478">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Configuration.Preset</node>
+    <node x="551.3096774043896" y="2175.101499683802">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.EventInviteStatusType</node>
+    <node x="431.61935480877924" y="948.4577197578827">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Communication.ChannelIdentificatorForPerson</node>
+    <node x="1099.9265797648486" y="2715.5851667419192">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Configuration.AttachmentAllow</node>
+    <node x="20.556266276728934" y="2546.4208481394835">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Extension.File</node>
+    <node x="517.1777460371989" y="1672.5">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.PersonType</node>
+    <node x="1476.8006424624723" y="2715.5851667419192">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Configuration.HashtagAllow</node>
+    <node x="1147.2446276572734" y="1157.261767097299">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.AddressLevel</node>
+    <node x="23.05626627672902" y="1927.5">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.GenderType</node>
+    <node x="1509.0" y="1627.5">a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.ProductSpecialPrice</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Communication.ChannelIdentificatorForBusinessUnit" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Communication.Channel" relationship="REFERENCES">
+      <point x="-146.5" y="0.0" />
+      <point x="863.9537170647021" y="1042.9577197578826" />
+      <point x="863.9537170647021" y="867.9634699281179" />
+      <point x="86.0" y="0.0" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.ProductOnEvent" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.Event" relationship="REFERENCES">
+      <point x="-75.0" y="0.0" />
+      <point x="1098.5" y="2023.4464698305565" />
+      <point x="1098.5" y="2022.0219051363438" />
+      <point x="107.36910281141945" y="22.021905136343776" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.Person" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.PersonStatus" relationship="REFERENCES">
+      <point x="0.0" y="160.5" />
+      <point x="373.61935480877924" y="2032.7463185472943" />
+      <point x="232.33781054275414" y="2032.7463185472943" />
+      <point x="232.33781054275414" y="2171.247484300522" />
+      <point x="109.05626627672902" y="2171.247484300522" />
+      <point x="0.0" y="-72.5" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.Person" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.PersonType" relationship="REFERENCES">
+      <point x="104.0" y="-44.0" />
+      <point x="548.398550422989" y="1956.0" />
+      <point x="548.398550422989" y="1875.25" />
+      <point x="549.1063781493532" y="1875.25" />
+      <point x="-70.07136788784567" y="80.86328213664228" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.BusinessUnit" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.BusinessUnit" relationship="REFERENCES">
+      <point x="79.02454789455862" y="-94.35653952903385" />
+      <point x="1035.5801975675213" y="1219.6011802288485" />
+      <point x="1035.5801975675213" y="1177.8995871265815" />
+      <point x="989.0924715148006" y="1177.8995871265815" />
+      <point x="989.0924715148006" y="1217.9658236366029" />
+      <point x="62.670981972101" y="-95.99189612127952" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.Person" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.AddressLevel" relationship="REFERENCES">
+      <point x="48.72300730062534" y="-158.17273208746292" />
+      <point x="422.3423621094046" y="790.6677725218178" />
+      <point x="1195.8955714238493" y="790.6677725218178" />
+      <point x="1195.8955714238493" y="1179.3698617761318" />
+      <point x="-75.64589924771462" y="-50.391905321167314" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.UI.User" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.UI.UserRole" relationship="REFERENCES">
+      <point x="0.0" y="-83.5" />
+      <point x="314.18642950346623" y="1424.0173909115547" />
+      <point x="314.18642950346623" y="1424.0173909115547" />
+      <point x="0.0" y="72.5" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.EventInvite" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.Person" relationship="REFERENCES">
+      <point x="-70.0" y="0.0" />
+      <point x="527.7145161065844" y="2023.4464698305565" />
+      <point x="527.7145161065844" y="2023.8858817064709" />
+      <point x="98.2847301048202" y="23.885881706470855" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.Event" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.BusinessDirectionType" relationship="REFERENCES">
+      <point x="0.0" y="-127.5" />
+      <point x="0.0" y="72.5" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Communication.ChannelIdentificatorForPerson" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Communication.Channel" relationship="REFERENCES">
+      <point x="0.0" y="94.5" />
+      <point x="556.6193548087792" y="867.9634699281179" />
+      <point x="722.1574341294042" y="867.9634699281179" />
+      <point x="0.0" y="-61.5" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.PersonType" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.BusinessDirectionType" relationship="REFERENCES">
+      <point x="102.95706639994523" y="8.332376584763097" />
+      <point x="822.5" y="1764.332376584763" />
+      <point x="-97.5" y="0.0" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.ProductPriceByPerson" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.Person" relationship="REFERENCES">
+      <point x="-95.5" y="0.0" />
+      <point x="1544.0868926599596" y="1439.4003139221338" />
+      <point x="1544.0868926599596" y="774.8829940433643" />
+      <point x="412.59128395248547" y="774.8829940433643" />
+      <point x="38.971929143706234" y="-158.17273208746292" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.AddressLevel" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.AddressLevelType" relationship="REFERENCES">
+      <point x="79.5" y="0.0" />
+      <point x="1414.4548739723552" y="1229.761767097299" />
+      <point x="1414.4548739723552" y="1159.75904987304" />
+      <point x="25.832037350138307" y="-70.00271722425884" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Extension.HashtagAssign" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Extension.Hashtag" relationship="REFERENCES">
+      <point x="0.0" y="-61.5" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.BusinessUnit" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.AddressLevel" relationship="REFERENCES">
+      <point x="83.49633917816823" y="-71.97475269452298" />
+      <point x="1050.01043928152" y="1241.9829670633594" />
+      <point x="1050.01043928152" y="1244.6007878222558" />
+      <point x="1226.7446276572734" y="1244.6007878222558" />
+      <point x="0.0" y="72.5" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.Product" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.ProductMeasurementType" relationship="REFERENCES">
+      <point x="0.0" y="127.5" />
+      <point x="1580.0" y="2068.234483693197" />
+      <point x="1366.3627955884558" y="2068.234483693197" />
+      <point x="0.0" y="-72.5" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Communication.ChannelIdentificatorForPerson" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.Person" relationship="REFERENCES">
+      <point x="-102.83510776112894" y="86.96855160194832" />
+      <point x="453.7842470476503" y="1193.0573448369319" />
+      <point x="453.79481066109065" y="1193.0573448369319" />
+      <point x="453.79481066109065" y="1231.4115806762343" />
+      <point x="433.17689339487026" y="1231.4115806762343" />
+      <point x="59.55753858609103" y="-153.83891957327683" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.Product" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.ProductCatalogLevel" relationship="REFERENCES">
+      <point x="102.0" y="0.0" />
+      <point x="1648.2594068517487" y="2000.0" />
+      <point x="1648.2594068517487" y="2258.601499683802" />
+      <point x="-90.0" y="0.0" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.ProductSpecialPrice" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.Product" relationship="REFERENCES">
+      <point x="0.0" y="-105.5" />
+      <point x="1595.5" y="2032.5" />
+      <point x="-102.0" y="32.5" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.UI.Session" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.UI.User" relationship="REFERENCES">
+      <point x="-86.5" y="0.0" />
+      <point x="91.04893845835147" y="1669.0" />
+      <point x="91.04893845835147" y="1685.4767039683868" />
+      <point x="80.0" y="0.0" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.ProductCatalogLevel" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.ProductCatalogLevel" relationship="REFERENCES">
+      <point x="71.21994967281921" y="-75.18854505561012" />
+      <point x="1663.2199496728192" y="2132.4906575865034" />
+      <point x="1722.1618748581373" y="2132.4906575865034" />
+      <point x="1722.1618748581373" y="2189.9136733994715" />
+      <point x="78.80412157264504" y="-68.68782628433064" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.ProductPriceByBusinessUnit" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.Product" relationship="REFERENCES">
+      <point x="5.0" y="72.5" />
+      <point x="1252.5" y="1915.2160341894698" />
+      <point x="1467.5901360426672" y="1915.2160341894698" />
+      <point x="1467.5901360426672" y="1913.563384397045" />
+      <point x="-93.87999794739835" y="-86.43661560295504" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.UI.User" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.Person" relationship="REFERENCES">
+      <point x="-80.0" y="0.0" />
+      <point x="373.61935480877924" y="1685.4767039683868" />
+      <point x="373.61935480877924" y="1951.0" />
+      <point x="-104.0" y="-49.0" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Extension.NoteAssign" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Extension.Note" relationship="REFERENCES">
+      <point x="0.0" y="-61.5" />
+      <point x="0.0" y="50.5" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.EventInvite" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.Event" relationship="REFERENCES">
+      <point x="70.0" y="0.0" />
+      <point x="783.611502325961" y="2023.4464698305565" />
+      <point x="783.611502325961" y="2023.8858817064709" />
+      <point x="-96.7363316174775" y="23.885881706470855" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.EventInvite" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.EventInviteStatusType" relationship="REFERENCES">
+      <point x="0.0" y="72.5" />
+      <point x="0.0" y="-72.5" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.BusinessUnit" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.BusinessUnitType" relationship="REFERENCES">
+      <point x="5.0" y="105.5" />
+      <point x="925.0" y="1393.9894299394705" />
+      <point x="925.0" y="1393.9894299394705" />
+      <point x="5.0" y="-83.5" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.Event" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.EventStatus" relationship="REFERENCES">
+      <point x="0.0" y="127.5" />
+      <point x="920.0" y="2161.0" />
+      <point x="1083.0065949950313" y="2161.0" />
+      <point x="1083.0065949950313" y="2247.601499683802" />
+      <point x="-86.0" y="0.0" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.AdditionalBusinessUnit" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.Person" relationship="REFERENCES">
+      <point x="-100.0" y="1.0" />
+      <point x="446.4031593012176" y="1300.1569699159813" />
+      <point x="446.4031593012176" y="1946.0" />
+      <point x="104.0" y="-54.0" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.ProductSpecialPrice" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.ProductSpecialPriceLevel" relationship="REFERENCES">
+      <point x="-86.5" y="0.0" />
+      <point x="1595.5" y="1733.0" />
+      <point x="1595.5" y="1523.205795566316" />
+      <point x="104.5" y="0.0" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.ProductPriceByPerson" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.Product" relationship="REFERENCES">
+      <point x="95.0427119324645" y="25.362491417534102" />
+      <point x="1386.698903086968" y="1464.762805339668" />
+      <point x="1386.698903086968" y="1899.4782735734857" />
+      <point x="1577.783756087452" y="1899.4782735734857" />
+      <point x="1577.783756087452" y="1973.0" />
+      <point x="102.0" y="-27.0" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Communication.ChannelIdentificatorForBusinessUnit" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.BusinessUnit" relationship="REFERENCES">
+      <point x="0.0" y="94.49999999999989" />
+      <point x="0.0" y="-105.5" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Configuration.Preset" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Configuration.PresetType" relationship="REFERENCES">
+      <point x="0.0" y="-94.5" />
+      <point x="684.6865495349177" y="2437.341537558287" />
+      <point x="894.0" y="2437.341537558287" />
+      <point x="0.0" y="72.5" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.BusinessUnitType" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.BusinessDirectionType" relationship="REFERENCES">
+      <point x="0.0" y="83.5" />
+      <point x="920.0" y="1618.0" />
+      <point x="920.0" y="1618.0" />
+      <point x="0.0" y="-72.5" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.Event" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.EventType" relationship="REFERENCES">
+      <point x="-102.0" y="32.5" />
+      <point x="920.0" y="2032.5" />
+      <point x="920.0" y="2161.0" />
+      <point x="894.0" y="2161.0" />
+      <point x="894.0" y="2208.656744059988" />
+      <point x="808.0" y="2208.656744059988" />
+      <point x="-86.0" y="0.0" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.ProductOnEvent" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.Product" relationship="REFERENCES">
+      <point x="75.0" y="0.0" />
+      <point x="1401.5" y="2023.4464698305565" />
+      <point x="1401.5" y="2023.8858817064709" />
+      <point x="-100.61657893280426" y="23.885881706470855" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.Person" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.GenderType" relationship="REFERENCES">
+      <point x="-104.0" y="0.0" />
+      <point x="86.0" y="0.0" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.Event" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Event.Event" relationship="REFERENCES">
+      <point x="92.0" y="127.5" />
+      <point x="1012.0" y="1858.9186658046465" />
+      <point x="1073.0" y="1858.9186658046465" />
+      <point x="1073.0" y="1915.2160341894698" />
+      <point x="102.72255211958372" y="-84.78396581053016" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Extension.AttachmentAssign" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Extension.Attachment" relationship="REFERENCES">
+      <point x="0.0" y="-61.5" />
+      <point x="1179.9265797648486" y="2555.312451481216" />
+      <point x="1179.9265797648486" y="2555.312451481216" />
+      <point x="0.0" y="61.5" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.Product" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.BusinessDirectionType" relationship="REFERENCES">
+      <point x="-5.0" y="-127.5" />
+      <point x="1575.0" y="1922.034169820018" />
+      <point x="1238.4667263260658" y="1922.034169820018" />
+      <point x="1238.4667263260658" y="1745.0" />
+      <point x="97.5" y="0.0" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.AddressLevel" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.AddressLevel" relationship="REFERENCES">
+      <point x="-69.5" y="72.5" />
+      <point x="1157.2446276572734" y="1313.9577197578824" />
+      <point x="1113.5303227204397" y="1313.9577197578824" />
+      <point x="1113.5303227204397" y="1271.5065207351518" />
+      <point x="1147.2446276572734" y="1271.5065207351518" />
+      <point x="-79.5" y="62.5" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Catalog.ProductPriceByBusinessUnit" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.BusinessUnit" relationship="REFERENCES">
+      <point x="-117.0" y="0.0" />
+      <point x="1099.6411451256504" y="1614.8808835486495" />
+      <point x="1099.6411451256504" y="1335.9506730508629" />
+      <point x="1006.0" y="1335.9506730508629" />
+      <point x="86.0" y="0.0" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.AdditionalBusinessUnit" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.BusinessUnit" relationship="REFERENCES">
+      <point x="-100.0" y="11.0" />
+      <point x="830.931383292077" y="1310.1569699159813" />
+      <point x="830.931383292077" y="1313.9577197578824" />
+      <point x="-86.0" y="0.0" />
+    </edge>
+    <edge source="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.Person" target="a9c206fc-7a93-411a-8f40-22d48219dfb7.TABLE:test10.Org.BusinessUnit" relationship="REFERENCES">
+      <point x="80.17545585231142" y="-160.17991980025727" />
+      <point x="453.79481066109065" y="1395.3632667811003" />
+      <point x="915.0" y="1395.3632667811003" />
+      <point x="-5.0" y="105.5" />
+    </edge>
+  </edges>
+  <settings layout="Channel" zoom="0.47297486033519487" showDependencies="false" x="394.23424610660413" y="1806.8532408090964" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Comments</Category>
+    <Category>Key columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+
