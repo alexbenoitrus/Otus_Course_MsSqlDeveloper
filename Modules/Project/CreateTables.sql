@@ -23,6 +23,13 @@ GO
 
 ----------------------------------------------------------------
 
+CREATE FULLTEXT CATALOG [DefaultCatalog]
+	AS DEFAULT
+	AUTHORIZATION [dbo]
+GO
+
+----------------------------------------------------------------
+
 CREATE TABLE [Org].[AddressLevelType]
 (
  [Id]          BIGINT IDENTITY(1,1) NOT NULL ,
@@ -57,8 +64,13 @@ CREATE TABLE [Org].[AddressLevel]
  CONSTRAINT [UQ_AddressLevel_ExternalId] UNIQUE ([ExternalId])
 );
 
-CREATE NONCLUSTERED INDEX [fkIdx_AddressLevel_TypeId] ON [Org].[AddressLevel] ([TypeId] ASC) INCLUDE ([Name])
 CREATE NONCLUSTERED INDEX [fkIdx_AddressLevel_ParentId] ON [Org].[AddressLevel] ([ParentId] ASC) INCLUDE ([Name])
+
+CREATE NONCLUSTERED INDEX [ix_AddressLevel_Name] ON [Org].[AddressLevel] ([Name] ASC)
+CREATE NONCLUSTERED INDEX [ix_AddressLevel_ExternalId] ON [Org].[AddressLevel] ([ExternalId] ASC)
+
+CREATE FULLTEXT INDEX ON [Org].[AddressLevel]([Name]) KEY INDEX [PK_AddressLevel] WITH (CHANGE_TRACKING AUTO)
+CREATE FULLTEXT INDEX ON [Org].[AddressLevel]([ExternalId]) KEY INDEX [PK_AddressLevel] WITH (CHANGE_TRACKING AUTO)
 GO
 
 ----------------------------------------------------------------
@@ -97,7 +109,6 @@ CREATE TABLE [Org].[BusinessUnitType]
  CONSTRAINT [UQ_BusinessUnitType_Name] UNIQUE ([Name])
 );
 
-CREATE NONCLUSTERED INDEX [fkIdx_BusinessUnit_BusinessDirectionTypeId] ON [Org].[BusinessUnitType] ([BusinessDirectionTypeId] ASC) INCLUDE ([Name])
 GO
 
 ----------------------------------------------------------------
@@ -125,7 +136,12 @@ CREATE TABLE [Org].[BusinessUnit]
 
 CREATE NONCLUSTERED INDEX [fkIdx_BusinessUnit_ParentId] ON [Org].[BusinessUnit] ([ParentId] ASC) INCLUDE ([Name])
 CREATE NONCLUSTERED INDEX [fkIdx_BusinessUnit_AddressLevelId] ON [Org].[BusinessUnit] ([AddressLevelId] ASC) INCLUDE ([Name])
-CREATE NONCLUSTERED INDEX [fkIdx_BusinessUnit_TypeId] ON [Org].[BusinessUnit] ([TypeId] ASC) INCLUDE ([Name])
+
+CREATE NONCLUSTERED INDEX [ix_BusinessUnit_Name] ON [Org].[BusinessUnit] ([Name] ASC)
+CREATE NONCLUSTERED INDEX [ix_BusinessUnit_ExternalId] ON [Org].[BusinessUnit] ([ExternalId] ASC) INCLUDE ([Name])
+
+CREATE FULLTEXT INDEX ON [Org].[BusinessUnit]([Name]) KEY INDEX [PK_BusinessUnit] WITH (CHANGE_TRACKING AUTO)
+CREATE FULLTEXT INDEX ON [Org].[BusinessUnit]([ExternalId]) KEY INDEX [PK_BusinessUnit] WITH (CHANGE_TRACKING AUTO)
 GO
 
 ----------------------------------------------------------------
@@ -163,7 +179,6 @@ CREATE TABLE [Org].[PersonType]
  CONSTRAINT [UQ_PersonType_Name] UNIQUE ([Name]),
 );
 
- CREATE NONCLUSTERED INDEX [fkIdx_PersonType_BusinessDirectionTypeId] ON [Org].[PersonType] ([BusinessDirectionTypeId] ASC) INCLUDE ([Name])
 GO
 
 ----------------------------------------------------------------
@@ -181,6 +196,7 @@ CREATE TABLE [Org].[GenderType]
  CONSTRAINT [UQ_GenderType_Name] UNIQUE ([Name]),
  CONSTRAINT [UQ_GenderType_IsDefault] UNIQUE ([IsDefault])
 );
+
 GO
 
 ----------------------------------------------------------------
@@ -188,13 +204,13 @@ GO
 CREATE TABLE [Org].[Person]
 (
  [Id]                BIGINT IDENTITY(1,1) NOT NULL ,
- [FirstName]         NVARCHAR(100) NOT NULL ,
  [StatusId]          BIGINT NOT NULL ,
- [BusinessUnitId]    BIGINT ,
+ [FirstName]         NVARCHAR(100) NOT NULL ,
+ [LastName]          NVARCHAR(100) ,
+ [MiddleName]        NVARCHAR(100) ,
  [GenderTypeId]      BIGINT ,
- [LastName]          NVARCHAR(100) NOT NULL ,
- [MiddleName]        NVARCHAR(100) NOT NULL ,
- [Description]       NVARCHAR(MAX) NOT NULL ,
+ [BusinessUnitId]    BIGINT ,
+ [Description]       NVARCHAR(MAX) ,
  [TypeId]            BIGINT NOT NULL ,
  [AddressLevelId]    BIGINT ,
  [AddressAdditional] NVARCHAR(100) ,
@@ -218,10 +234,19 @@ CREATE TABLE [Org].[Person]
 );
 
 CREATE NONCLUSTERED INDEX [fkIdx_Person_BusinessUnitId] ON [Org].[Person] ([BusinessUnitId] ASC) INCLUDE ([FirstName], [LastName], [MiddleName])
-CREATE NONCLUSTERED INDEX [fkIdx_Person_StatusId] ON [Org].[Person] ([StatusId] ASC) INCLUDE ([FirstName], [LastName], [MiddleName])
-CREATE NONCLUSTERED INDEX [fkIdx_Person_TypeId] ON [Org].[Person] ([TypeId] ASC) INCLUDE ([FirstName], [LastName], [MiddleName])
 CREATE NONCLUSTERED INDEX [fkIdx_Person_AddressLevelId] ON [Org].[Person] ([AddressLevelId] ASC) INCLUDE ([FirstName], [LastName], [MiddleName])
-CREATE NONCLUSTERED INDEX [fkIdx_Person_GenderTypeId] ON [Org].[Person] ([GenderTypeId] ASC) INCLUDE ([FirstName], [LastName], [MiddleName])
+
+CREATE NONCLUSTERED INDEX [ix_Person_BirthDay] ON [Org].[Person] ([BirthDay] ASC) INCLUDE ([FirstName], [LastName], [MiddleName])
+CREATE NONCLUSTERED INDEX [ix_Person_RegisterOn] ON [Org].[Person] ([RegisterOn] ASC) INCLUDE ([FirstName], [LastName], [MiddleName])
+CREATE NONCLUSTERED INDEX [ix_Person_FirstName] ON [Org].[Person] ([FirstName] ASC) INCLUDE ([LastName], [MiddleName])
+CREATE NONCLUSTERED INDEX [ix_Person_LastName] ON [Org].[Person] ([LastName] ASC) INCLUDE ([FirstName], [MiddleName])
+CREATE NONCLUSTERED INDEX [ix_Person_MiddleName] ON [Org].[Person] ([MiddleName] ASC) INCLUDE ([FirstName], [LastName])
+CREATE NONCLUSTERED INDEX [ix_Person_ExternalId] ON [Org].[Person] ([ExternalId] ASC) INCLUDE ([FirstName], [LastName], [MiddleName])
+
+CREATE FULLTEXT INDEX ON [Org].[Person]([FirstName]) KEY INDEX [PK_Person] WITH (CHANGE_TRACKING AUTO)
+CREATE FULLTEXT INDEX ON [Org].[Person]([LastName]) KEY INDEX [PK_Person] WITH (CHANGE_TRACKING AUTO)
+CREATE FULLTEXT INDEX ON [Org].[Person]([MiddleName]) KEY INDEX [PK_Person] WITH (CHANGE_TRACKING AUTO)
+CREATE FULLTEXT INDEX ON [Org].[Person]([ExternalId]) KEY INDEX [PK_Person] WITH (CHANGE_TRACKING AUTO)
 GO
 
 ----------------------------------------------------------------
@@ -281,6 +306,12 @@ CREATE TABLE [Catalog].[ProductCatalogLevel]
 );
 
 CREATE NONCLUSTERED INDEX [fkIdx_ProductCatalogLevel_ParendId] ON [Catalog].[ProductCatalogLevel] ([ParentId] ASC) INCLUDE ([Name])
+
+CREATE NONCLUSTERED INDEX [ix_ProductCatalogLevel_Name] ON [Catalog].[ProductCatalogLevel] ([Name] ASC)
+CREATE NONCLUSTERED INDEX [ix_ProductCatalogLevel_ExtenalId] ON [Catalog].[ProductCatalogLevel] ([ExternalId] ASC) INCLUDE ([Name])
+
+CREATE FULLTEXT INDEX ON [Catalog].[ProductCatalogLevel]([Name]) KEY INDEX [PK_ProductCatalogLevel] WITH (CHANGE_TRACKING AUTO)
+CREATE FULLTEXT INDEX ON [Catalog].[ProductCatalogLevel]([ExternalId]) KEY INDEX [PK_ProductCatalogLevel] WITH (CHANGE_TRACKING AUTO)
 GO
 
 ----------------------------------------------------------------
@@ -308,9 +339,14 @@ CREATE TABLE [Catalog].[Product]
  CONSTRAINT [UQ_ProductCatalogLevel_ExternalId] UNIQUE ([ExternalId])
 );
 
-CREATE NONCLUSTERED INDEX [fkIdx_Product_MeasurementTypeId] ON [catalog].[Product] ([MeasurementTypeId] ASC) INCLUDE ([Name])
 CREATE NONCLUSTERED INDEX [fkIdx_Product_CatalogLevelId] ON [catalog].[Product] ([CatalogLevelId] ASC) INCLUDE ([Name]) 
-CREATE NONCLUSTERED INDEX [fkIdx_Product_BusinessDirectionTypeId] ON [catalog].[Product] ([BusinessDirectionTypeId] ASC) INCLUDE ([Name])
+
+CREATE NONCLUSTERED INDEX [ix_Product_Name] ON [Catalog].[Product] ([Name] ASC)
+CREATE NONCLUSTERED INDEX [ix_Product_ExtenalId] ON [Catalog].[Product] ([ExternalId] ASC) INCLUDE ([Name])
+CREATE NONCLUSTERED INDEX [ix_Product_Price] ON [Catalog].[Product] ([Price] ASC) INCLUDE ([Name])
+
+CREATE FULLTEXT INDEX ON [Catalog].[Product]([Name]) KEY INDEX [PK_Product] WITH (CHANGE_TRACKING AUTO)
+CREATE FULLTEXT INDEX ON [Catalog].[Product]([ExternalId]) KEY INDEX [PK_Product] WITH (CHANGE_TRACKING AUTO)
 GO
 
 ----------------------------------------------------------------
@@ -333,6 +369,8 @@ CREATE TABLE [Catalog].[ProductPriceByBusinessUnit]
 
 CREATE NONCLUSTERED INDEX [fkIdx_ProductPriceByBusinessUnit_ProductId] ON [Catalog].[ProductPriceByBusinessUnit] ([ProductId] ASC) INCLUDE ([Price])
 CREATE NONCLUSTERED INDEX [fkIdx_ProductPriceByBusinessUnit_BusinessUnitId] ON [Catalog].[ProductPriceByBusinessUnit] ([BusinessUnitId] ASC) INCLUDE ([Price])
+
+CREATE NONCLUSTERED INDEX [ix_ProductPriceByBusinessUnit_Price] ON [Catalog].[ProductPriceByBusinessUnit] ([Price] ASC) INCLUDE ([ProductId], [BusinessUnitId])
 GO
 
 ----------------------------------------------------------------
@@ -355,6 +393,8 @@ CREATE TABLE [Catalog].[ProductPriceByPerson]
 
 CREATE NONCLUSTERED INDEX [fkIdx_ProductPriceByPerson_PersonId] ON [Catalog].[ProductPriceByPerson] ([PersonId] ASC) INCLUDE ([Price])
 CREATE NONCLUSTERED INDEX [fkIdx_ProductPriceByPerson_ProductId] ON [Catalog].[ProductPriceByPerson] ([ProductId] ASC) INCLUDE ([Price])
+
+CREATE NONCLUSTERED INDEX [ix_ProductPriceByPerson_Price] ON [Catalog].[ProductPriceByPerson] ([Price] ASC) INCLUDE ([ProductId], [PersonId])
 GO
 
 ----------------------------------------------------------------
@@ -369,6 +409,7 @@ CREATE TABLE [Catalog].[ProductSpecialPriceLevel]
 
  CONSTRAINT [UQ_ProductSpecialPriceLevel_Name] UNIQUE ([Name])
 );
+
 GO
 
 ----------------------------------------------------------------
@@ -392,6 +433,12 @@ CREATE TABLE [Catalog].[ProductSpecialPrice]
 
 CREATE NONCLUSTERED INDEX [fkIdx_ProductSpecialPrice_ProductId] ON [Catalog].[ProductSpecialPrice] ([ProductId] ASC) INCLUDE ([Name])
 CREATE NONCLUSTERED INDEX [fkIdx_ProductSpecialPrice_LevelId] ON [Catalog].[ProductSpecialPrice] ([LevelId] ASC) INCLUDE ([Name])
+
+CREATE NONCLUSTERED INDEX [ix_ProductSpecialPrice_Price] ON [Catalog].[ProductSpecialPrice] ([Price] ASC) INCLUDE ([Name])
+CREATE NONCLUSTERED INDEX [ix_ProductSpecialPrice_StartOn] ON [Catalog].[ProductSpecialPrice] ([StartOn] ASC) INCLUDE ([Name])
+CREATE NONCLUSTERED INDEX [ix_ProductSpecialPrice_EndOn] ON [Catalog].[ProductSpecialPrice] ([EndOn] ASC) INCLUDE ([Name])
+
+CREATE FULLTEXT INDEX ON [Catalog].[ProductSpecialPrice]([Name]) KEY INDEX [PK_ProductSpecialPrice] WITH (CHANGE_TRACKING AUTO)
 GO
 
 ----------------------------------------------------------------
@@ -416,7 +463,7 @@ CREATE TABLE [Communication].[ChannelIdentificatorForBusinessUnit]
  [Id]					BIGINT IDENTITY(1,1) NOT NULL ,
  [BusinessUnitId]		BIGINT NOT NULL ,
  [ChannelId]			BIGINT NOT NULL ,
- [Identificator]		NVARCHAR(MAX) NOT NULL ,
+ [Identificator]		NVARCHAR(200) NOT NULL ,
  [IsAppruved]			BIT NOT NULL ,
  [IsVoiceAllowed]		BIT NOT NULL ,
  [IsTextAllowed]		BIT NOT NULL ,
@@ -434,7 +481,10 @@ CREATE TABLE [Communication].[ChannelIdentificatorForBusinessUnit]
 );
 
 CREATE NONCLUSTERED INDEX [fkIdx_ChannelIdentificatorForBusinessUnit_BusinessUnitId] ON [Communication].[ChannelIdentificatorForBusinessUnit] ([BusinessUnitId] ASC)
-CREATE NONCLUSTERED INDEX [fkIdx_ChannelIdentificatorForBusinessUnit_ChannelId] ON [Communication].[ChannelIdentificatorForBusinessUnit] ([ChannelId] ASC)
+
+CREATE NONCLUSTERED INDEX [ix_ChannelIdentificatorForBusinessUnit_Identificator] ON [Communication].[ChannelIdentificatorForBusinessUnit] ([Identificator] ASC)
+
+CREATE FULLTEXT INDEX ON [Communication].[ChannelIdentificatorForBusinessUnit]([Identificator]) KEY INDEX [PK_ChannelIdentificatorForBusinessUnit] WITH (CHANGE_TRACKING AUTO)
 GO
 
 ----------------------------------------------------------------
@@ -444,7 +494,7 @@ CREATE TABLE [Communication].[ChannelIdentificatorForPerson]
  [Id]					BIGINT IDENTITY(1,1) NOT NULL ,
  [ChannelId]			BIGINT NOT NULL ,
  [PersonId]				BIGINT NOT NULL ,
- [Identificator]		NVARCHAR(MAX) NOT NULL ,
+ [Identificator]		NVARCHAR(200) NOT NULL ,
  [IsAppruved]			BIT NOT NULL ,
  [IsVoiceAllowed]		BIT NOT NULL ,
  [IsTextAllowed]		BIT NOT NULL ,
@@ -462,7 +512,10 @@ CREATE TABLE [Communication].[ChannelIdentificatorForPerson]
 );
 
 CREATE NONCLUSTERED INDEX [fkIdx_ChannelIdentificatorForPerson_ChannelId] ON [Communication].[ChannelIdentificatorForPerson] ([ChannelId] ASC) 
-CREATE NONCLUSTERED INDEX [fkIdx_ChannelIdentificatorForPerson_PersonId] ON [Communication].[ChannelIdentificatorForPerson] ([PersonId] ASC) 
+
+CREATE NONCLUSTERED INDEX [ix_ChannelIdentificatorForPerson_Identificator] ON [Communication].[ChannelIdentificatorForPerson] ([Identificator] ASC)
+
+CREATE FULLTEXT INDEX ON [Communication].[ChannelIdentificatorForPerson]([Identificator]) KEY INDEX [PK_ChannelIdentificatorForPerson] WITH (CHANGE_TRACKING AUTO)
 GO
 
 ----------------------------------------------------------------
@@ -566,6 +619,8 @@ CREATE TABLE [Extension].[Attachment]
 
  CONSTRAINT [PK_Attachment] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+CREATE FULLTEXT INDEX ON [Extension].[Attachment]([Name]) KEY INDEX [PK_Attachment] WITH (CHANGE_TRACKING AUTO)
 GO
 
 ----------------------------------------------------------------
@@ -598,6 +653,10 @@ CREATE TABLE [Extension].[File]
 
  CONSTRAINT [PK_File] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+CREATE NONCLUSTERED INDEX [ix_File_Name] ON [Extension].[File] ([Name] ASC)
+
+CREATE FULLTEXT INDEX ON [Extension].[File]([Name]) KEY INDEX [PK_File] WITH (CHANGE_TRACKING AUTO)
 GO
 
 ----------------------------------------------------------------
@@ -611,6 +670,10 @@ CREATE TABLE [Extension].[Hashtag]
 
  CONSTRAINT [UQ_Hashtag_Name] UNIQUE ([Name])
 );
+
+CREATE NONCLUSTERED INDEX [ix_HashTag_Name] ON [Extension].[Hashtag] ([Name] ASC)
+
+CREATE FULLTEXT INDEX ON [Extension].[Hashtag]([Name]) KEY INDEX [PK_Hashtag] WITH (CHANGE_TRACKING AUTO)
 GO
 
 ----------------------------------------------------------------
@@ -629,19 +692,24 @@ CREATE TABLE [Extension].[HashtagAssign]
  CONSTRAINT [UQ_HashtagAssign_TableId_HashtagId_EntityId] UNIQUE ([TableId], [HashtagId], [EntityId])
 );
 
-----------------------------------------------------------------
-
-CREATE NONCLUSTERED INDEX [fkIdx_HashtagAssign_HashtagId] ON [Extension].[HashtagAssign] ([HashtagId] ASC) 
+CREATE NONCLUSTERED INDEX [ix_HashtagAssign_HashtagIdTableIdEntityId] ON [Extension].[HashtagAssign] ([HashtagId] ASC, [TableId] ASC, [EntityId] ASC) 
+CREATE NONCLUSTERED INDEX [ix_HashtagAssign_TableIdEntityId] ON [Extension].[HashtagAssign] ([TableId] ASC, [EntityId] ASC) INCLUDE ([HashtagId]) 
 GO
+
+----------------------------------------------------------------
 
 CREATE TABLE [Extension].[Note]
 (
  [Id]     BIGINT IDENTITY(1,1) NOT NULL ,
- [Header] NVARCHAR(100) NOT NULL ,
+ [Name] NVARCHAR(300) NOT NULL ,
  [Body]   ntext NOT NULL ,
 
  CONSTRAINT [PK_Note] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+CREATE NONCLUSTERED INDEX [ix_Note_Name] ON [Extension].[Note] ([Name] ASC)
+
+CREATE FULLTEXT INDEX ON [Extension].[Note]([Name]) KEY INDEX [PK_Note] WITH (CHANGE_TRACKING AUTO)
 GO
 
 ----------------------------------------------------------------
@@ -661,7 +729,8 @@ CREATE TABLE [Extension].[NoteAssign]
  CONSTRAINT [UQ_NoteAssign_TableId_NoteId_EntityId] UNIQUE ([TableId], [NoteId], [EntityId])
 );
 
-CREATE NONCLUSTERED INDEX [fkIdx_NoteAssign_NoteId] ON [Extension].[NoteAssign] ([NoteId] ASC)
+CREATE NONCLUSTERED INDEX [ix_NoteAssign_HashtagIdTableIdEntityId] ON [Extension].[NoteAssign] ([NoteId] ASC, [TableId] ASC, [EntityId] ASC) 
+CREATE NONCLUSTERED INDEX [ix_NoteAssign_TableIdEntityId] ON [Extension].[NoteAssign] ([TableId] ASC, [EntityId] ASC) INCLUDE ([NoteId]) 
 GO
 
 ----------------------------------------------------------------
@@ -721,10 +790,13 @@ CREATE TABLE [Event].[Event]
  CONSTRAINT [FK_Event_BusinessDirectionType] FOREIGN KEY ([BusinessDirectionTypeId])  REFERENCES [Org].[BusinessDirectionType]([Id]),
 );
 
-CREATE NONCLUSTERED INDEX [fkIdx_Event_TypeId] ON [Event].[Event] ([TypeId] ASC) INCLUDE ([Name])
-CREATE NONCLUSTERED INDEX [fkIdx_Event_StatusId] ON [Event].[Event] ([StatusId] ASC) INCLUDE ([Name])
 CREATE NONCLUSTERED INDEX [fkIdx_Event_PreviosEventId] ON [Event].[Event] ([PreviosEventId] ASC) INCLUDE ([Name])
-CREATE NONCLUSTERED INDEX [fkIdx_Event_BusinessDirectionTypeId] ON [Event].[Event] ([BusinessDirectionTypeId] ASC) INCLUDE ([Name])
+
+CREATE NONCLUSTERED INDEX [ix_Event_Name] ON [Event].[Event] ([Name] ASC)
+CREATE NONCLUSTERED INDEX [ix_Event_StartOn] ON [Event].[Event] ([StartOn] ASC) INCLUDE ([Name])
+CREATE NONCLUSTERED INDEX [ix_Event_EndOn] ON [Event].[Event] ([EndOn] ASC) INCLUDE ([Name])
+
+CREATE FULLTEXT INDEX ON [Event].[Event]([Name]) KEY INDEX [PK_Event] WITH (CHANGE_TRACKING AUTO)
 GO
 
 ----------------------------------------------------------------
@@ -795,12 +867,15 @@ GO
 CREATE TABLE [Log].[Error]
 (
  [Id]            BIGINT IDENTITY(1,1) NOT NULL ,
- [ProcedureName] NVARCHAR(MAX) NOT NULL ,
+ [ProcedureName] NVARCHAR(300) NOT NULL ,
  [ErrorCode]     INT NOT NULL ,
  [Parameters]    NVARCHAR(MAX) NOT NULL ,
 
  CONSTRAINT [PK_Error] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+CREATE NONCLUSTERED INDEX [ix_Error_ProcedureName] ON [Log].[Error] ([ProcedureName] ASC) 
+CREATE NONCLUSTERED INDEX [ix_Error_ErrorCode] ON [Log].[Error] ([ErrorCode] ASC) 
 GO
 
 ----------------------------------------------------------------
@@ -840,8 +915,9 @@ CREATE TABLE [UI].[User]
  CONSTRAINT [UQ_User_PersonId] UNIQUE ([PersonId])
 );
 
-CREATE NONCLUSTERED INDEX [fkIdx_User_RoleId] ON [UI].[User] ([RoleId] ASC) INCLUDE ([Login])
 CREATE NONCLUSTERED INDEX [fkIdx_User_PersonId] ON [UI].[User] ([PersonId] ASC) INCLUDE ([Login])
+
+CREATE FULLTEXT INDEX ON [UI].[User]([Login]) KEY INDEX [PK_User] WITH (CHANGE_TRACKING AUTO)
 GO
 
 ----------------------------------------------------------------
@@ -865,6 +941,8 @@ CREATE TABLE [UI].[Session]
 );
 
 CREATE NONCLUSTERED INDEX [fkIdx_Session_User] ON [UI].[Session] ([UserId] ASC)
+
+CREATE NONCLUSTERED INDEX [ix_Session_Key] ON [UI].[Session] ([Key] ASC)
 GO
 
 ----------------------------------------------------------------
@@ -886,6 +964,9 @@ CREATE TABLE [History].[PersonStatus]
 	CONSTRAINT [FK_PersonStatus_StatusNew] FOREIGN KEY ([NewStatusId]) REFERENCES [Org].[PersonStatus]([Id]),
 )
 
+CREATE NONCLUSTERED INDEX [fkIdx_History_PersonStatus_PersonId] ON [History].[PersonStatus] ([PersonId] ASC)
+CREATE NONCLUSTERED INDEX [fkIdx_History_PersonStatus_ChangerId] ON [History].[PersonStatus] ([ChangerId] ASC)
+
 ----------------------------------------------------------------
 
 CREATE TABLE [History].[PersonType]
@@ -904,6 +985,9 @@ CREATE TABLE [History].[PersonType]
 	CONSTRAINT [FK_PersonStatus_TypeOld] FOREIGN KEY ([OldTypeId]) REFERENCES [Org].[PersonType]([Id]),
 	CONSTRAINT [FK_PersonStatus_TypeNew] FOREIGN KEY ([NewTypeId]) REFERENCES [Org].[PersonType]([Id]),
 )
+
+CREATE NONCLUSTERED INDEX [fkIdx_History_PersonType_PersonId] ON [History].[PersonType] ([PersonId] ASC)
+CREATE NONCLUSTERED INDEX [fkIdx_History_PersonType_ChangerId] ON [History].[PersonType] ([ChangerId] ASC)
 
 ------------------------------------------------------------------
 
