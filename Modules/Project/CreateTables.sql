@@ -69,8 +69,7 @@ CREATE NONCLUSTERED INDEX [fkIdx_AddressLevel_ParentId] ON [Org].[AddressLevel] 
 CREATE NONCLUSTERED INDEX [ix_AddressLevel_Name] ON [Org].[AddressLevel] ([Name] ASC)
 CREATE NONCLUSTERED INDEX [ix_AddressLevel_ExternalId] ON [Org].[AddressLevel] ([ExternalId] ASC)
 
-CREATE FULLTEXT INDEX ON [Org].[AddressLevel]([Name]) KEY INDEX [PK_AddressLevel] WITH (CHANGE_TRACKING AUTO)
-CREATE FULLTEXT INDEX ON [Org].[AddressLevel]([ExternalId]) KEY INDEX [PK_AddressLevel] WITH (CHANGE_TRACKING AUTO)
+CREATE FULLTEXT INDEX ON [Org].[AddressLevel]([Name], [ExternalId]) KEY INDEX [PK_AddressLevel] WITH (CHANGE_TRACKING AUTO)
 GO
 
 ----------------------------------------------------------------
@@ -140,8 +139,7 @@ CREATE NONCLUSTERED INDEX [fkIdx_BusinessUnit_AddressLevelId] ON [Org].[Business
 CREATE NONCLUSTERED INDEX [ix_BusinessUnit_Name] ON [Org].[BusinessUnit] ([Name] ASC)
 CREATE NONCLUSTERED INDEX [ix_BusinessUnit_ExternalId] ON [Org].[BusinessUnit] ([ExternalId] ASC) INCLUDE ([Name])
 
-CREATE FULLTEXT INDEX ON [Org].[BusinessUnit]([Name]) KEY INDEX [PK_BusinessUnit] WITH (CHANGE_TRACKING AUTO)
-CREATE FULLTEXT INDEX ON [Org].[BusinessUnit]([ExternalId]) KEY INDEX [PK_BusinessUnit] WITH (CHANGE_TRACKING AUTO)
+CREATE FULLTEXT INDEX ON [Org].[BusinessUnit]([Name], [ExternalId]) KEY INDEX [PK_BusinessUnit] WITH (CHANGE_TRACKING AUTO)
 GO
 
 ----------------------------------------------------------------
@@ -243,10 +241,7 @@ CREATE NONCLUSTERED INDEX [ix_Person_LastName] ON [Org].[Person] ([LastName] ASC
 CREATE NONCLUSTERED INDEX [ix_Person_MiddleName] ON [Org].[Person] ([MiddleName] ASC) INCLUDE ([FirstName], [LastName])
 CREATE NONCLUSTERED INDEX [ix_Person_ExternalId] ON [Org].[Person] ([ExternalId] ASC) INCLUDE ([FirstName], [LastName], [MiddleName])
 
-CREATE FULLTEXT INDEX ON [Org].[Person]([FirstName]) KEY INDEX [PK_Person] WITH (CHANGE_TRACKING AUTO)
-CREATE FULLTEXT INDEX ON [Org].[Person]([LastName]) KEY INDEX [PK_Person] WITH (CHANGE_TRACKING AUTO)
-CREATE FULLTEXT INDEX ON [Org].[Person]([MiddleName]) KEY INDEX [PK_Person] WITH (CHANGE_TRACKING AUTO)
-CREATE FULLTEXT INDEX ON [Org].[Person]([ExternalId]) KEY INDEX [PK_Person] WITH (CHANGE_TRACKING AUTO)
+CREATE FULLTEXT INDEX ON [Org].[Person]([FirstName], [LastName], [MiddleName], [ExternalId]) KEY INDEX [PK_Person] WITH (CHANGE_TRACKING AUTO)
 GO
 
 ----------------------------------------------------------------
@@ -310,8 +305,7 @@ CREATE NONCLUSTERED INDEX [fkIdx_ProductCatalogLevel_ParendId] ON [Catalog].[Pro
 CREATE NONCLUSTERED INDEX [ix_ProductCatalogLevel_Name] ON [Catalog].[ProductCatalogLevel] ([Name] ASC)
 CREATE NONCLUSTERED INDEX [ix_ProductCatalogLevel_ExtenalId] ON [Catalog].[ProductCatalogLevel] ([ExternalId] ASC) INCLUDE ([Name])
 
-CREATE FULLTEXT INDEX ON [Catalog].[ProductCatalogLevel]([Name]) KEY INDEX [PK_ProductCatalogLevel] WITH (CHANGE_TRACKING AUTO)
-CREATE FULLTEXT INDEX ON [Catalog].[ProductCatalogLevel]([ExternalId]) KEY INDEX [PK_ProductCatalogLevel] WITH (CHANGE_TRACKING AUTO)
+CREATE FULLTEXT INDEX ON [Catalog].[ProductCatalogLevel]([Name], [ExternalId]) KEY INDEX [PK_ProductCatalogLevel] WITH (CHANGE_TRACKING AUTO)
 GO
 
 ----------------------------------------------------------------
@@ -335,8 +329,8 @@ CREATE TABLE [Catalog].[Product]
  CONSTRAINT [FK_Product_ProductCatalogLevel] FOREIGN KEY ([CatalogLevelId])  REFERENCES [catalog].[ProductCatalogLevel]([Id]),
  CONSTRAINT [FK_Product_BusinessDirectionType] FOREIGN KEY ([BusinessDirectionTypeId])  REFERENCES [Org].[BusinessDirectionType]([Id]),
  
- CONSTRAINT [UQ_ProductCatalogLevel_Name_ParentId_BusinessDirectionTypeId_MeasurementTypeId] UNIQUE ([Name], [CatalogLevelId], [BusinessDirectionTypeId], [MeasurementTypeId]),
- CONSTRAINT [UQ_ProductCatalogLevel_ExternalId] UNIQUE ([ExternalId])
+ CONSTRAINT [UQ_Product_Name_ParentId_BusinessDirectionTypeId_MeasurementTypeId] UNIQUE ([Name], [CatalogLevelId], [BusinessDirectionTypeId], [MeasurementTypeId]),
+ CONSTRAINT [UQ_Product_ExternalId] UNIQUE ([ExternalId])
 );
 
 CREATE NONCLUSTERED INDEX [fkIdx_Product_CatalogLevelId] ON [catalog].[Product] ([CatalogLevelId] ASC) INCLUDE ([Name]) 
@@ -345,8 +339,7 @@ CREATE NONCLUSTERED INDEX [ix_Product_Name] ON [Catalog].[Product] ([Name] ASC)
 CREATE NONCLUSTERED INDEX [ix_Product_ExtenalId] ON [Catalog].[Product] ([ExternalId] ASC) INCLUDE ([Name])
 CREATE NONCLUSTERED INDEX [ix_Product_Price] ON [Catalog].[Product] ([Price] ASC) INCLUDE ([Name])
 
-CREATE FULLTEXT INDEX ON [Catalog].[Product]([Name]) KEY INDEX [PK_Product] WITH (CHANGE_TRACKING AUTO)
-CREATE FULLTEXT INDEX ON [Catalog].[Product]([ExternalId]) KEY INDEX [PK_Product] WITH (CHANGE_TRACKING AUTO)
+CREATE FULLTEXT INDEX ON [Catalog].[Product]([Name], [ExternalId]) KEY INDEX [PK_Product] WITH (CHANGE_TRACKING AUTO)
 GO
 
 ----------------------------------------------------------------
@@ -568,7 +561,7 @@ CREATE TABLE [Configuration].[NoteAllow]
 
  CONSTRAINT [PK_NoteAllow] PRIMARY KEY CLUSTERED ([Id] ASC),
 
- CONSTRAINT [UQ_HashtagAllow_TableId] UNIQUE ([TableId])
+ CONSTRAINT [UQ_NoteAllow_TableId] UNIQUE ([TableId])
 );
 GO
 
