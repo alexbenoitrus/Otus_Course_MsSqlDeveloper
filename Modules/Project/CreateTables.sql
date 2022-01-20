@@ -12,7 +12,7 @@ CREATE SCHEMA [Log];
 GO
 CREATE SCHEMA [Org];
 GO
-CREATE SCHEMA [Sales];
+CREATE SCHEMA [Report];
 GO
 CREATE SCHEMA [UI];
 GO
@@ -20,7 +20,6 @@ CREATE SCHEMA [Localization]
 GO
 CREATE SCHEMA [Extension]
 GO
-
 ----------------------------------------------------------------
 
 CREATE FULLTEXT CATALOG [DefaultCatalog]
@@ -207,7 +206,7 @@ CREATE TABLE [Org].[Person]
  [LastName]          NVARCHAR(100) ,
  [MiddleName]        NVARCHAR(100) ,
  [GenderTypeId]      BIGINT ,
- [BusinessUnitId]    BIGINT ,
+ [BusinessUnitId]    BIGINT NOT NULL,
  [Description]       NVARCHAR(MAX) ,
  [TypeId]            BIGINT NOT NULL ,
  [AddressLevelId]    BIGINT ,
@@ -634,23 +633,32 @@ CREATE TABLE [Extension].[AttachmentAssign]
 
 CREATE NONCLUSTERED INDEX [fkIdx_AttachmentAssign_AttachmentId] ON [Extension].[AttachmentAssign] ([AttachmentId] ASC)
 GO
+----------------------------------------------------------------
+
+CREATE TABLE [Extension].[FileHeader]
+(
+ [Id]          BIGINT IDENTITY(1,1) NOT NULL ,
+ [Name]        NVARCHAR(100) NOT NULL ,
+ [FileId]      VARBINARY(MAX) NOT NULL ,
+ [Description] NVARCHAR(MAX) NOT NULL ,
+
+ CONSTRAINT [PK_FileHeader] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE NONCLUSTERED INDEX [ix_FileHeader_Name] ON [Extension].[FileHeader] ([Name] ASC)
+
+CREATE FULLTEXT INDEX ON [Extension].[FileHeader]([Name]) KEY INDEX [PK_FileHeader] WITH (CHANGE_TRACKING AUTO)
+GO
 
 ----------------------------------------------------------------
 
 CREATE TABLE [Extension].[File]
 (
  [Id]          BIGINT IDENTITY(1,1) NOT NULL ,
- [Name]        NVARCHAR(100) NOT NULL ,
  [Body]        VARBINARY(MAX) NOT NULL ,
- [Description] NVARCHAR(MAX) NOT NULL ,
 
  CONSTRAINT [PK_File] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
-
-CREATE NONCLUSTERED INDEX [ix_File_Name] ON [Extension].[File] ([Name] ASC)
-
-CREATE FULLTEXT INDEX ON [Extension].[File]([Name]) KEY INDEX [PK_File] WITH (CHANGE_TRACKING AUTO)
-GO
 
 ----------------------------------------------------------------
 
@@ -998,111 +1006,61 @@ CREATE NONCLUSTERED INDEX [fkIdx_History_PersonType_ChangerId] ON [History].[Per
 
 ---------------------------- SALES --------------------------------------
 
- -- ¬ œ–Œ–¿¡Œ“ ≈
+CREATE TABLE [Report].[Order]
+(
+ [id]						BIGINT NOT NULL ,
+ [Date]						DATETIME2(7) NOT NULL ,
+ [Sum]						DECIMAL(18,2) NOT NULL ,
+ [Discount]					DECIMAL(18,2) NOT NULL ,
+ [SellerId]					BIGINT NOT NULL,
+ [SellerBusinesUnitId]		BIGINT NOT NULL,
+ [SellerFullName]			NVARCHAR (300) NOT NULL,
+ [SellerBusinesUnitName]	NVARCHAR (100) NOT NULL,
+ [ClientId]					BIGINT NOT NULL,
+ [ClientBusinesUnitId]		BIGINT NOT NULL,
+ [ClientFullName]			NVARCHAR (300) NOT NULL,
+ [ClientBusinesUnitName]	NVARCHAR (100) NOT NULL,
 
---CREATE TABLE [Sales].[OrderStatus]
---(
--- [Id]          BIGINT NOT NULL ,
--- [Name]        NVARCHAR(100) NOT NULL ,
--- [Description] NVARCHAR(300) NOT NULL ,
--- [IsActive]    BIT NOT NULL ,
--- [IsDefault]   BIT NULL ,
+ CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED ([id] ASC),
+ 
+ CONSTRAINT [FK_Order_SellerId] FOREIGN KEY (SellerId)  REFERENCES [Org].[Person]([Id]),
+ CONSTRAINT [FK_Order_ClientId] FOREIGN KEY (ClientId)  REFERENCES [Org].[Person]([Id]),
+ CONSTRAINT [FK_Order_SellerBusinesUnitId] FOREIGN KEY ([SellerBusinesUnitId])  REFERENCES [Org].[BusinessUnit]([Id]),
+ CONSTRAINT [FK_Order_ClientBusinesUnitId] FOREIGN KEY ([SellerBusinesUnitId])  REFERENCES [Org].[BusinessUnit]([Id]),
+);
+GO
 
+CREATE NONCLUSTERED INDEX [fkIdx_Order_SellerId] ON [Report].[Order] ([SellerId] ASC)
+GO
 
--- CONSTRAINT [PK_187] PRIMARY KEY CLUSTERED ([Id] ASC)
---);
---GO
+CREATE NONCLUSTERED INDEX [fkIdx_Order_ClientId] ON [Report].[Order] ([ClientId] ASC)
+GO
 
---CREATE TABLE [Sales].[Order]
---(
--- [id]        BIGINT NOT NULL ,
--- [Date]      DATETIME2(7) NOT NULL ,
--- [Sum]       DECIMAL(18,0) NOT NULL ,
--- [Positions] NVARCHAR(MAX) NOT NULL ,
--- [StatusId]  BIGINT NOT NULL ,
+------------------------------------------------------------------
 
+CREATE TABLE [Report].[OrderLine]
+(
+ [Id]			BIGINT NOT NULL ,
+ [Name]			NVARCHAR(100) NOT NULL ,
+ [Externalid]	NVARCHAR(50) NOT NULL ,
+ [OrderId]		BIGINT NOT NULL ,
+ [ProductId]	BIGINT NOT NULL ,
+ [Count]		DECIMAL(18,3) NOT NULL ,
+ [Sum]			DECIMAL(18,2) NOT NULL ,
+ [Discount]		DECIMAL(18,2) NOT NULL ,
 
--- CONSTRAINT [PK_388] PRIMARY KEY CLUSTERED ([id] ASC),
--- CONSTRAINT [FK_425] FOREIGN KEY ([StatusId])  REFERENCES [Sales].[OrderStatus]([Id])
---);
---GO
+ CONSTRAINT [PK_OrderLine] PRIMARY KEY CLUSTERED ([Id] ASC),
 
+ CONSTRAINT [FK_OrderLine_OrderId] FOREIGN KEY ([OrderId]) REFERENCES [Report].[Order]([Id]),
+ CONSTRAINT [FK_OrderLine_ProductId] FOREIGN KEY ([ProductId]) REFERENCES [Catalog].[Product]([Id]),
+);
+GO
 
---CREATE NONCLUSTERED INDEX [fkIdx_427] ON [Sales].[Order] 
--- (
---  [StatusId] ASC
--- )
+CREATE NONCLUSTERED INDEX [fkIdx_OrderLine_OrderId] ON [Report].[OrderLine] ([OrderId] ASC)
+GO
 
---GO
+CREATE NONCLUSTERED INDEX [fkIdx_OrderLine_ProductId] ON [Report].[OrderLine] ([ProductId] ASC)
+GO
 
---CREATE TABLE [Sales].[OrderMemberType]
---(
--- [Id]          BIGINT NOT NULL ,
--- [Name]        NVARCHAR(100) NOT NULL ,
--- [Description] NVARCHAR(300) NOT NULL ,
--- [IsActive]    BIT NOT NULL ,
--- [IsDefault]   BIT NULL ,
-
-
--- CONSTRAINT [PK_187] PRIMARY KEY CLUSTERED ([Id] ASC)
---);
---GO
-
---CREATE TABLE [Sales].[OrderMember]
---(
--- [PersonId] BIGINT NOT NULL ,
--- [OrderId]  BIGINT NOT NULL ,
--- [TypeId]   BIGINT NOT NULL ,
--- [Id]       BIGINT NOT NULL ,
-
-
--- CONSTRAINT [PK_410] PRIMARY KEY CLUSTERED ([Id] ASC),
--- CONSTRAINT [FK_411] FOREIGN KEY ([PersonId])  REFERENCES [Org].[BusinessUnit]([Id]),
--- CONSTRAINT [FK_414] FOREIGN KEY ([OrderId])  REFERENCES [Sales].[Order]([id]),
--- CONSTRAINT [FK_442] FOREIGN KEY ([TypeId])  REFERENCES [Sales].[OrderMemberType]([Id])
---);
---GO
-
-
---CREATE NONCLUSTERED INDEX [fkIdx_413] ON [Sales].[OrderMember] 
--- (
---  [PersonId] ASC
--- )
-
---GO
-
---CREATE NONCLUSTERED INDEX [fkIdx_416] ON [Sales].[OrderMember] 
--- (
---  [OrderId] ASC
--- )
-
---GO
-
---CREATE NONCLUSTERED INDEX [fkIdx_444] ON [Sales].[OrderMember] 
--- (
---  [TypeId] ASC
--- )
-
---GO
-
---CREATE TABLE [Sales].[Purchase]
---(
--- [Date]      DATETIME2(7) NOT NULL ,
--- [PurcaseId] BIGINT NOT NULL ,
--- [Sum]       DECIMAL(18,0) NOT NULL ,
--- [Positions] NVARCHAR(MAX) NOT NULL ,
--- [id]        BIGINT NOT NULL ,
-
-
--- CONSTRAINT [PK_388] PRIMARY KEY CLUSTERED ([id] ASC),
--- CONSTRAINT [FK_399] FOREIGN KEY ([PurcaseId])  REFERENCES [Sales].[Order]([id])
---);
---GO
-
-
---CREATE NONCLUSTERED INDEX [fkIdx_401] ON [Sales].[Purchase] 
--- (
---  [PurcaseId] ASC
--- )
-
---GO
+CREATE NONCLUSTERED INDEX [fkIdx_OrderLine_Externalid] ON [Report].[OrderLine] ([Externalid] ASC)
+GO

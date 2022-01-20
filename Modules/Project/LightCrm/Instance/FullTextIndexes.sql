@@ -40,10 +40,7 @@ CREATE FULLTEXT INDEX ON [Org].[BusinessUnit]
 
 
 GO
-CREATE FULLTEXT INDEX ON [Extension].[File]
-    ([Name] LANGUAGE 1049)
-    KEY INDEX [PK_File]
-    ON [DefaultCatalog];
+
 
 
 GO
@@ -92,5 +89,12 @@ GO
 CREATE FULLTEXT INDEX ON [UI].[User]
     ([Login] LANGUAGE 1049)
     KEY INDEX [PK_User]
+    ON [DefaultCatalog];
+
+
+GO
+CREATE FULLTEXT INDEX ON [Extension].[FileHeader]
+    ([Name] LANGUAGE 1049)
+    KEY INDEX [PK_FileHeader]
     ON [DefaultCatalog];
 

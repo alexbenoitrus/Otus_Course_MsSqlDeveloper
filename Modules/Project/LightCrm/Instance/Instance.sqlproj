@@ -13,7 +13,7 @@
     </RootPath>
     <RootNamespace>Instance</RootNamespace>
     <AssemblyName>Instance</AssemblyName>
-    <ModelCollation>1033, CI</ModelCollation>
+    <ModelCollation>1049,CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -22,6 +22,8 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>Cyrillic_General_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -56,5 +58,93 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="Catalog\" />
+    <Folder Include="Catalog\Tables\" />
+    <Folder Include="UI\" />
+    <Folder Include="UI\Tables\" />
+    <Folder Include="History\" />
+    <Folder Include="History\Tables\" />
+    <Folder Include="Communication\" />
+    <Folder Include="Communication\Tables\" />
+    <Folder Include="Org\" />
+    <Folder Include="Org\Tables\" />
+    <Folder Include="Configuration\" />
+    <Folder Include="Configuration\Tables\" />
+    <Folder Include="Extension\" />
+    <Folder Include="Extension\Tables\" />
+    <Folder Include="Event\" />
+    <Folder Include="Event\Tables\" />
+    <Folder Include="Log\" />
+    <Folder Include="Log\Tables\" />
+    <Folder Include="Storage\" />
+    <Folder Include="Security\" />
+    <Folder Include="Sales\" />
+    <Folder Include="Sales\Tables\" />
+    <Folder Include="Report\" />
+    <Folder Include="Report\Tables\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Catalog\Tables\ProductSpecialPriceLevel.sql" />
+    <Build Include="Catalog\Tables\ProductSpecialPrice.sql" />
+    <Build Include="UI\Tables\Session.sql" />
+    <Build Include="History\Tables\PersonStatus.sql" />
+    <Build Include="Communication\Tables\Channel.sql" />
+    <Build Include="Communication\Tables\ChannelIdentificatorForBusinessUnit.sql" />
+    <Build Include="History\Tables\PersonType.sql" />
+    <Build Include="Communication\Tables\ChannelIdentificatorForPerson.sql" />
+    <Build Include="Org\Tables\AddressLevelType.sql" />
+    <Build Include="Configuration\Tables\AttachmentAllow.sql" />
+    <Build Include="Configuration\Tables\BasePreset.sql" />
+    <Build Include="Org\Tables\AddressLevel.sql" />
+    <Build Include="Configuration\Tables\HashtagAllow.sql" />
+    <Build Include="Configuration\Tables\NoteAllow.sql" />
+    <Build Include="Configuration\Tables\PresetType.sql" />
+    <Build Include="Org\Tables\BusinessDirectionType.sql" />
+    <Build Include="Configuration\Tables\Preset.sql" />
+    <Build Include="Extension\Tables\Attachment.sql" />
+    <Build Include="Org\Tables\BusinessUnitType.sql" />
+    <Build Include="Org\Tables\BusinessUnit.sql" />
+    <Build Include="Extension\Tables\AttachmentAssign.sql" />
+    <Build Include="Extension\Tables\FileDescription.sql" />
+    <Build Include="Extension\Tables\Hashtag.sql" />
+    <Build Include="Org\Tables\PersonStatus.sql" />
+    <Build Include="Org\Tables\PersonType.sql" />
+    <Build Include="Extension\Tables\HashtagAssign.sql" />
+    <Build Include="Org\Tables\GenderType.sql" />
+    <Build Include="Extension\Tables\Note.sql" />
+    <Build Include="Org\Tables\Person.sql" />
+    <Build Include="Extension\Tables\NoteAssign.sql" />
+    <Build Include="Event\Tables\EventStatus.sql" />
+    <Build Include="Event\Tables\EventType.sql" />
+    <Build Include="Org\Tables\AdditionalBusinessUnit.sql" />
+    <Build Include="Event\Tables\Event.sql" />
+    <Build Include="Catalog\Tables\ProductMeasurementType.sql" />
+    <Build Include="Catalog\Tables\ProductCatalogLevel.sql" />
+    <Build Include="Event\Tables\EventInviteStatusType.sql" />
+    <Build Include="Event\Tables\EventInvite.sql" />
+    <Build Include="Catalog\Tables\Product.sql" />
+    <Build Include="Event\Tables\ProductOnEvent.sql" />
+    <Build Include="Log\Tables\Error.sql" />
+    <Build Include="Catalog\Tables\ProductPriceByBusinessUnit.sql" />
+    <Build Include="UI\Tables\UserRole.sql" />
+    <Build Include="UI\Tables\User.sql" />
+    <Build Include="Catalog\Tables\ProductPriceByPerson.sql" />
+    <Build Include="Storage\DefaultCatalog.sql" />
+    <Build Include="FullTextIndexes.sql" />
+    <Build Include="Security\Catalog.sql" />
+    <Build Include="Security\Communication.sql" />
+    <Build Include="Security\Configuration.sql" />
+    <Build Include="Security\Event.sql" />
+    <Build Include="Security\Extension.sql" />
+    <Build Include="Security\History.sql" />
+    <Build Include="Security\Localization.sql" />
+    <Build Include="Security\Log.sql" />
+    <Build Include="Security\Org.sql" />
+    <Build Include="Security\Sales.sql" />
+    <Build Include="Security\UI.sql" />
+    <Build Include="Extension\Tables\FileHeader.sql" />
+    <Build Include="Report\Tables\OrderLine.sql" />
+    <Build Include="Report\Tables\Order.sql" />
+    <Build Include="Security\Report.sql" />
   </ItemGroup>
 </Project>
