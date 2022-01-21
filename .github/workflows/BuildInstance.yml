@@ -11,37 +11,18 @@ jobs:
     runs-on: windows-latest
     
     steps:
+    ### CheckOut
     - uses: actions/checkout@v2
+    ### Set MSBuild
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.1
+    ### Build Project
     - name: Build database project
       working-directory: Modules/Project/LightCrm/
       run: msbuild Instance/Instance.sqlproj -t:rebuild -verbosity:diag -property:Configuration=Release
-    # publish build artifact (dacpac) back to github
+    ### Publish build artifact (dacpac) back to github
     - name: publish build artifacts back to GitHub
       uses: actions/upload-artifact@v1
       with:
         name: db
-        path: artifacts\Instance.dacpac
-    - name: Create release on GitHub
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: LightCRM Instance DB ${{ github.ref }}
-        body: |
-          A refactoring of the Northwind Traders database, **West Wind Wholesalers** is a retail distributor based on a drop-shipping model.
-        draft: false
-        prerelease: false
-    - name: Upload Release Asset
-      id: upload-release-asset
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE set above, referencing its ID to get its outputs object, which include a `upload_url`. See this blog post for more information: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-        asset_path: artifacts\Instance.dacpac
-        asset_name: Instance.dacpac
-        asset_content_type: application/zip
+        path: artifacts/Instance.dacpac
