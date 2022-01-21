@@ -1,0 +1,28 @@
+name: Create Release
+
+on:
+  push:
+    branches:
+     - develop
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: windows-latest
+    
+    steps:
+    ### CheckOut
+    - uses: actions/checkout@v2
+    ### Set MSBuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.1
+    ### Build Project
+    - name: Build database project
+      working-directory: Modules/Project/LightCrm/
+      run: msbuild Instance/Instance.sqlproj -t:rebuild -verbosity:diag -property:Configuration=Release
+    ### Publish build artifact (dacpac) back to github
+    - name: publish build artifacts back to GitHub
+      uses: actions/upload-artifact@v2.3.1
+      with:
+        name: db
+        path: Instance\bin\Debug\Instance.dacpac
