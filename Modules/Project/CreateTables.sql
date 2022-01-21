@@ -227,7 +227,7 @@ CREATE TABLE [Org].[Person]
 );
 
 CREATE NONCLUSTERED INDEX [fkIdx_Person_BusinessUnitId] ON [Org].[Person] ([BusinessUnitId] ASC) INCLUDE ([FirstName], [LastName], [MiddleName])
-CREATE NONCLUSTERED INDEX [fkIdx_Person_AddressLevelId] ON [Org].[Person] ([AddressLevelId] ASC) INCLUDE ([FirstName], [LastName], [MiddleName])
+CREATE NONCLUSTERED INDEX [fkIdx_Person_AddressLevelId] ON [Org].[Person] ([AddressLevelId] ASC) INCLUDE ([ExternalId])
 
 CREATE NONCLUSTERED INDEX [ix_Person_BirthDay] ON [Org].[Person] ([BirthDay] ASC) INCLUDE ([FirstName], [LastName], [MiddleName])
 CREATE NONCLUSTERED INDEX [ix_Person_RegisterOn] ON [Org].[Person] ([RegisterOn] ASC) INCLUDE ([FirstName], [LastName], [MiddleName])
