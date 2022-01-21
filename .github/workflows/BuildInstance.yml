@@ -13,10 +13,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Setup MSBuild.exe
-      uses: warrenbuckley/Setup-MSBuild@v1
+      uses: microsoft/setup-msbuild@v1.1
     - name: Build database project
       working-directory: Modules/Project/LightCrm/
-      run: MSBuild.exe Instance/Instance.sqlproj
+      run: msbuild Instance/Instance.sqlproj -t:rebuild -verbosity:diag -property:Configuration=Release
     # publish build artifact (dacpac) back to github
     - name: publish build artifacts back to GitHub
       uses: actions/upload-artifact@v1
