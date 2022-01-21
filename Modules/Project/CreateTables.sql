@@ -20,6 +20,8 @@ CREATE SCHEMA [Localization]
 GO
 CREATE SCHEMA [Extension]
 GO
+CREATE SCHEMA [DWH]
+GO
 ----------------------------------------------------------------
 
 CREATE FULLTEXT CATALOG [DefaultCatalog]
@@ -1053,3 +1055,70 @@ GO
 
 CREATE NONCLUSTERED INDEX [fkIdx_OrderLine_Externalid] ON [Report].[OrderLine] ([Externalid] ASC)
 GO
+
+---------------------------- Mini DWH --------------------------------------
+
+CREATE TABLE [DWH].[DimPerson]
+(
+ [Id]                BIGINT IDENTITY(1,1) NOT NULL ,
+ [FirstName]         NVARCHAR(100) NOT NULL ,
+ [LastName]          NVARCHAR(100) ,
+ [MiddleName]        NVARCHAR(100) ,
+ [Icon]              NVARCHAR(MAX) ,
+ [ExternalId]        NVARCHAR(50) ,
+
+ CONSTRAINT [PK_DWH_DimPerson] PRIMARY KEY CLUSTERED ([Id] ASC),
+
+ CONSTRAINT [UQ_DWH_DimExternalId] UNIQUE ([ExternalId]),
+);
+
+------------------------------------------------------------------
+
+CREATE TABLE [DWH].[DimBusinessUnit]
+(
+ [Id]			BIGINT IDENTITY(1,1) NOT NULL ,
+ [Name]			NVARCHAR(100) NOT NULL ,
+ [Icon]			NVARCHAR(MAX) ,
+ [ExternalId]	NVARCHAR(50) NOT NULL ,
+
+ CONSTRAINT [PK_DWH_DimBusinessUnit] PRIMARY KEY CLUSTERED ([Id] ASC),
+ CONSTRAINT [UQ_DWH_DimBusinessUnit_ExternalId] UNIQUE ([ExternalId])
+);
+
+-------------------------------------------------------------------
+
+CREATE TABLE [DWH].[DimDatetime]
+(
+ [Id]		BIGINT IDENTITY(1,1) NOT NULL ,
+ [Day]	    INT NOT NULL,
+ [Month]	INT NOT NULL,
+ [Year]	    INT NOT NULL,
+
+ CONSTRAINT [PK_DWH_DimDatetime] PRIMARY KEY CLUSTERED ([id] ASC),
+
+ CONSTRAINT [CHK_DWH_DimDatetime_Day] CHECK ([Day] >=1 AND [Day] <=31),
+ CONSTRAINT [CHK_DWH_DimDatetime_Month] CHECK ([Month] >=1 AND [Month] <=12),
+ CONSTRAINT [CHK_DWH_DimDatetime_Year] CHECK ([Year] >=1900 AND [Year] <=2100)
+);
+
+-------------------------------------------------------------------
+
+CREATE TABLE [DWH].[FactOrder]
+(
+ [id]						BIGINT NOT NULL ,
+ [Sum]						DECIMAL(18,2) NOT NULL ,
+ [Discount]					DECIMAL(18,2) NOT NULL ,
+ [DateId]					BIGINT NOT NULL,
+ [SellerId]					BIGINT NOT NULL,
+ [SellerBusinesUnitId]		BIGINT NOT NULL,
+ [ClientId]					BIGINT NOT NULL,
+ [ClientBusinesUnitId]		BIGINT NOT NULL,
+
+ CONSTRAINT [PK_DWH_FactOrder] PRIMARY KEY CLUSTERED ([id] ASC),
+ 
+ CONSTRAINT [FK_DWH_FactOrder_DateId] FOREIGN KEY (DateId)  REFERENCES [DWH].[DimDatetime]([Id]),
+ CONSTRAINT [FK_DWH_FactOrder_SellerId] FOREIGN KEY (SellerId)  REFERENCES [DWH].[DimPerson]([Id]),
+ CONSTRAINT [FK_DWH_FactOrder_ClientId] FOREIGN KEY (ClientId)  REFERENCES [DWH].[DimPerson]([Id]),
+ CONSTRAINT [FK_DWH_FactOrder_SellerBusinesUnitId] FOREIGN KEY ([SellerBusinesUnitId])  REFERENCES [DWH].[DimBusinessUnit]([Id]),
+ CONSTRAINT [FK_DWH_FactOrder_ClientBusinesUnitId] FOREIGN KEY ([SellerBusinesUnitId])  REFERENCES [DWH].[DimBusinessUnit]([Id]),
+)

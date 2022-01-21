@@ -1,4 +1,3 @@
-USE [Test21]
 GO
 SET IDENTITY_INSERT [Org].[BusinessDirectionType] ON 
 GO
@@ -146,7 +145,7 @@ INSERT [Org].[PersonStatus] ([Id], [Name], [Description], [IsActive], [IsDefault
 GO
 INSERT [Org].[PersonStatus] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (5, N'В отпуске', N'В отпуске', 1, NULL)
 GO
-INSERT [Org].[PersonStatus] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (5, N'В декрете', N'В декрете', 1, NULL)
+INSERT [Org].[PersonStatus] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (6, N'В декрете', N'В декрете', 1, NULL)
 GO
 SET IDENTITY_INSERT [Org].[PersonStatus] OFF
 GO

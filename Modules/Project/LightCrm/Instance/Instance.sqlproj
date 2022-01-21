@@ -82,6 +82,8 @@
     <Folder Include="Sales\Tables\" />
     <Folder Include="Report\" />
     <Folder Include="Report\Tables\" />
+    <Folder Include="DWH\" />
+    <Folder Include="DWH\Tables\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Catalog\Tables\ProductSpecialPriceLevel.sql" />
@@ -146,5 +148,10 @@
     <Build Include="Report\Tables\OrderLine.sql" />
     <Build Include="Report\Tables\Order.sql" />
     <Build Include="Security\Report.sql" />
+    <Build Include="DWH\Tables\FactOrder.sql" />
+    <Build Include="DWH\Tables\DimBusinessUnit.sql" />
+    <Build Include="DWH\Tables\DimPerson.sql" />
+    <Build Include="Security\DWH.sql" />
+    <Build Include="DWH\Tables\DimDate.sql" />
   </ItemGroup>
 </Project>
