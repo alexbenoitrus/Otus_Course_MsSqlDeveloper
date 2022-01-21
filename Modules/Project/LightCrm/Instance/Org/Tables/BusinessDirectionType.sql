@@ -5,7 +5,8 @@
     [IsActive]    BIT            NOT NULL,
     [IsDefault]   BIT            NULL,
     CONSTRAINT [PK_BusinessDirectionType] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [UQ_BusinessDirectionType_IsDefault] UNIQUE NONCLUSTERED ([IsDefault] ASC),
     CONSTRAINT [UQ_BusinessDirectionType_Name] UNIQUE NONCLUSTERED ([Name] ASC)
 );
+
+
 

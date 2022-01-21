@@ -5,7 +5,8 @@
     [IsActive]    BIT            NOT NULL,
     [IsDefault]   BIT            NULL,
     CONSTRAINT [PK_EventType] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [UQ_EventType_IsDefault] UNIQUE NONCLUSTERED ([IsDefault] ASC),
     CONSTRAINT [UQ_EventType_Name] UNIQUE NONCLUSTERED ([Name] ASC)
 );
+
+
 

@@ -5,7 +5,8 @@
     [IsActive]    BIT            NOT NULL,
     [IsDefault]   BIT            NULL,
     CONSTRAINT [PK_EventInviteStatusType] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [UQ_EventInviteStatusType_IsDefault] UNIQUE NONCLUSTERED ([IsDefault] ASC),
     CONSTRAINT [UQ_EventInviteStatusType_Name] UNIQUE NONCLUSTERED ([Name] ASC)
 );
+
+
 

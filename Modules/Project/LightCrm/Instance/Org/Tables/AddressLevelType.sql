@@ -5,7 +5,8 @@
     [IsActive]    BIT            NOT NULL,
     [IsDefault]   BIT            NULL,
     CONSTRAINT [PK_AddressLevelType] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [UQ_AddressLevelType_IsDefault] UNIQUE NONCLUSTERED ([IsDefault] ASC),
     CONSTRAINT [UQ_AddressLevelType_Name] UNIQUE NONCLUSTERED ([Name] ASC)
 );
+
+
 

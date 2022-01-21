@@ -83,7 +83,6 @@ CREATE TABLE [Org].[BusinessDirectionType]
 
  CONSTRAINT [PK_BusinessDirectionType] PRIMARY KEY CLUSTERED ([Id] ASC),
 
- CONSTRAINT [UQ_BusinessDirectionType_IsDefault] UNIQUE ([IsDefault]),
  CONSTRAINT [UQ_BusinessDirectionType_Name] UNIQUE ([Name])
 );
 GO
@@ -103,7 +102,6 @@ CREATE TABLE [Org].[BusinessUnitType]
 
  CONSTRAINT [FK_BusinessUnitType_BusinessDirectionType] FOREIGN KEY ([BusinessDirectionTypeId])  REFERENCES [Org].[BusinessDirectionType]([Id]),
 
- CONSTRAINT [UQ_BusinessUnitType_IsDefault] UNIQUE ([IsDefault]),
  CONSTRAINT [UQ_BusinessUnitType_Name] UNIQUE ([Name])
 );
 
@@ -153,8 +151,7 @@ CREATE TABLE [Org].[PersonStatus]
 
  CONSTRAINT [PK_PersonStatus] PRIMARY KEY CLUSTERED ([Id] ASC),
 
- CONSTRAINT [UQ_PersonStatus_Name] UNIQUE ([Name]),
- CONSTRAINT [UQ_PersonStatus_IsDefault] UNIQUE ([IsDefault])
+ CONSTRAINT [UQ_PersonStatus_Name] UNIQUE ([Name])
 );
 GO
 
@@ -190,8 +187,7 @@ CREATE TABLE [Org].[GenderType]
 
  CONSTRAINT [PK_GenderType] PRIMARY KEY CLUSTERED ([Id] ASC),
 
- CONSTRAINT [UQ_GenderType_Name] UNIQUE ([Name]),
- CONSTRAINT [UQ_GenderType_IsDefault] UNIQUE ([IsDefault])
+ CONSTRAINT [UQ_GenderType_Name] UNIQUE ([Name])
 );
 
 GO
@@ -275,7 +271,6 @@ CREATE TABLE [Catalog].[ProductMeasurementType]
 
  CONSTRAINT [PK_ProductMeasurementType] PRIMARY KEY CLUSTERED ([Id] ASC),
 
- CONSTRAINT [UQ_ProductMeasurementType_IsDefault] UNIQUE ([IsDefault]),
  CONSTRAINT [UQ_ProductMeasurementType_Name] UNIQUE ([Name])
 );
 GO
@@ -574,9 +569,7 @@ CREATE TABLE [Configuration].[PresetType]
  [IsActive]    BIT NOT NULL ,
  [IsDefault]   BIT ,
 
- CONSTRAINT [PK_PresetType] PRIMARY KEY CLUSTERED ([Id] ASC),
-
- CONSTRAINT [UQ_PresetType_IsDefault] UNIQUE ([IsDefault])
+ CONSTRAINT [PK_PresetType] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 GO
 
@@ -746,7 +739,6 @@ CREATE TABLE [Event].[EventStatus]
  
  CONSTRAINT [PK_EventStatus] PRIMARY KEY CLUSTERED ([Id] ASC),
 
- CONSTRAINT [UQ_EventStatus_IsDefault] UNIQUE ([IsDefault]),
  CONSTRAINT [UQ_EventStatus_Name] UNIQUE ([Name])
 );
 GO
@@ -763,7 +755,6 @@ CREATE TABLE [Event].[EventType]
 
  CONSTRAINT [PK_EventType] PRIMARY KEY CLUSTERED ([Id] ASC),
 
- CONSTRAINT [UQ_EventType_IsDefault] UNIQUE ([IsDefault]),
  CONSTRAINT [UQ_EventType_Name] UNIQUE ([Name])
 );
 GO
@@ -812,7 +803,6 @@ CREATE TABLE [Event].[EventInviteStatusType]
 
  CONSTRAINT [PK_EventInviteStatusType] PRIMARY KEY CLUSTERED ([Id] ASC),
 
- CONSTRAINT [UQ_EventInviteStatusType_IsDefault] UNIQUE ([IsDefault]),
  CONSTRAINT [UQ_EventInviteStatusType_Name] UNIQUE ([Name])
 );
 GO
@@ -891,7 +881,6 @@ CREATE TABLE [UI].[UserRole]
 
  CONSTRAINT [PK_UserRole] PRIMARY KEY CLUSTERED ([Id] ASC),
 
- CONSTRAINT [UQ_UserRole_IsDefault] UNIQUE ([IsDefault]),
  CONSTRAINT [UQ_UserRole_Name] UNIQUE ([Name])
 );
 GO

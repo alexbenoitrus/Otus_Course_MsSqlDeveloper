@@ -5,7 +5,8 @@
     [IsActive]    BIT            NOT NULL,
     [IsDefault]   BIT            NULL,
     CONSTRAINT [PK_PersonStatus] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [UQ_PersonStatus_IsDefault] UNIQUE NONCLUSTERED ([IsDefault] ASC),
     CONSTRAINT [UQ_PersonStatus_Name] UNIQUE NONCLUSTERED ([Name] ASC)
 );
+
+
 

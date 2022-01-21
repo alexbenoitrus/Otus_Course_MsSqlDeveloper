@@ -7,7 +7,8 @@
     [BusinessDirectionTypeId] BIGINT         NOT NULL,
     CONSTRAINT [PK_BusinessUnitType] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_BusinessUnitType_BusinessDirectionType] FOREIGN KEY ([BusinessDirectionTypeId]) REFERENCES [Org].[BusinessDirectionType] ([Id]),
-    CONSTRAINT [UQ_BusinessUnitType_IsDefault] UNIQUE NONCLUSTERED ([IsDefault] ASC),
     CONSTRAINT [UQ_BusinessUnitType_Name] UNIQUE NONCLUSTERED ([Name] ASC)
 );
+
+
 

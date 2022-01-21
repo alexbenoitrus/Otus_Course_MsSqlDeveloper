@@ -3,7 +3,16 @@
   <DataSet Name="DataSet1">
     <Query>
       <DataSourceReference>Instance</DataSourceReference>
-      <CommandText>SELECT TOP (1000) 
+      <DataSetParameters>
+        <DataSetParameter Name="Имя подразделения">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:UserDefined>true</rd:UserDefined>
+          <rd:DbType>String</rd:DbType>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandText>SELECT
        [id]
       ,[Date]
       ,[Sum]
@@ -48,5 +57,14 @@
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
     </Fields>
+    <Filters>
+      <Filter>
+        <FilterExpression>=Fields!SellerFullName.Value</FilterExpression>
+        <Operator>Equal</Operator>
+        <FilterValues>
+          <FilterValue />
+        </FilterValues>
+      </Filter>
+    </Filters>
   </DataSet>
 </SharedDataSet>

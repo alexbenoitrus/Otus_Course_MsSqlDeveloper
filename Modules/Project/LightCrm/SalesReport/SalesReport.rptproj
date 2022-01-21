@@ -49,13 +49,14 @@
     <Reports>@(Report)</Reports>
   </PropertyGroup>
   <ItemGroup>
+    <DataSet Include="BusinessUnits.rsd" />
     <DataSet Include="Orders.rsd" />
   </ItemGroup>
   <ItemGroup>
     <DataSource Include="Instance.rds" />
   </ItemGroup>
   <ItemGroup>
-    <Report Include="OrdersBySeller.rdl" />
+    <Report Include="ReportByBusinessUnit.rdl" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Reporting Services\Microsoft.ReportingServices.MSBuilder.targets" />
 </Project>
