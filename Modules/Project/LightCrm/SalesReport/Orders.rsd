@@ -12,16 +12,8 @@
           <rd:DbType>String</rd:DbType>
         </DataSetParameter>
       </DataSetParameters>
-      <CommandText>SELECT
-       [id]
-      ,[Date]
-      ,[Sum]
-      ,[Discount]
-      ,[SellerFullName]
-      ,[SellerBusinesUnitName]
-      ,[ClientFullName]
-      ,[ClientBusinesUnitName]
-  FROM [Report].[Order]</CommandText>
+      <CommandText>SELECT        id, Date, Sum, Discount, SellerFullName, SellerBusinessUnitName, ClientFullName, ClientBusinessUnitName
+FROM            Report.[Order]</CommandText>
     </Query>
     <Fields>
       <Field Name="id">
@@ -44,16 +36,16 @@
         <DataField>SellerFullName</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
-      <Field Name="SellerBusinesUnitName">
-        <DataField>SellerBusinesUnitName</DataField>
+      <Field Name="SellerBusinessUnitName">
+        <DataField>SellerBusinessUnitName</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
       <Field Name="ClientFullName">
         <DataField>ClientFullName</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
-      <Field Name="ClientBusinesUnitName">
-        <DataField>ClientBusinesUnitName</DataField>
+      <Field Name="ClientBusinessUnitName">
+        <DataField>ClientBusinessUnitName</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
     </Fields>

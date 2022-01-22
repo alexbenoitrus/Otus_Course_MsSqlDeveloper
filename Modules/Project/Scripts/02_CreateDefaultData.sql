@@ -43,6 +43,8 @@ INSERT [Org].[BusinessUnit] ([Id], [ParentId], [AddressLevelId], [TypeId], [Name
 GO
 INSERT [Org].[BusinessUnit] ([Id], [ParentId], [AddressLevelId], [TypeId], [Name], [Description], [Icon], [ExternalId]) VALUES (4, NULL, NULL, 4, N'Партнёры', N'Партнёры', NULL, N'Партнёры')
 GO
+INSERT [Org].[BusinessUnit] ([Id], [ParentId], [AddressLevelId], [TypeId], [Name], [Description], [Icon], [ExternalId]) VALUES (5, NULL, NULL, 1, N'Администрация', N'Администрация', NULL, N'Администрация')
+GO
 SET IDENTITY_INSERT [Org].[BusinessUnit] OFF
 GO
 SET IDENTITY_INSERT [Org].[PersonType] ON 

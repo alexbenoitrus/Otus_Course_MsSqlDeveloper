@@ -49,7 +49,7 @@
     <Reports>@(Report)</Reports>
   </PropertyGroup>
   <ItemGroup>
-    <DataSet Include="BusinessUnits.rsd" />
+    <DataSet Include="BusinessUnitsEmployees.rsd" />
     <DataSet Include="Orders.rsd" />
   </ItemGroup>
   <ItemGroup>

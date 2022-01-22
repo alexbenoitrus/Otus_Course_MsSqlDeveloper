@@ -8,20 +8,20 @@
   </Database>
   <Cubes>
     <ProjectItem>
-      <Name>Otus Project.cube</Name>
-      <FullPath>Otus Project.cube</FullPath>
+      <Name>Orders 1.cube</Name>
+      <FullPath>Orders 1.cube</FullPath>
       <Dependencies>
         <ProjectItem>
-          <Name>Otus Project.partitions</Name>
-          <FullPath>Otus Project.partitions</FullPath>
+          <Name>Orders 1.partitions</Name>
+          <FullPath>Orders 1.partitions</FullPath>
         </ProjectItem>
       </Dependencies>
     </ProjectItem>
   </Cubes>
   <Dimensions>
     <ProjectItem>
-      <Name>Fact Order.dim</Name>
-      <FullPath>Fact Order.dim</FullPath>
+      <Name>Dim Business Unit.dim</Name>
+      <FullPath>Dim Business Unit.dim</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>Dim Person.dim</Name>
@@ -30,22 +30,6 @@
     <ProjectItem>
       <Name>Dim Date.dim</Name>
       <FullPath>Dim Date.dim</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>Dim Business Unit.dim</Name>
-      <FullPath>Dim Business Unit.dim</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>Dim Person 1.dim</Name>
-      <FullPath>Dim Person 1.dim</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>Dim Date 1.dim</Name>
-      <FullPath>Dim Date 1.dim</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>Dim Business Unit 1.dim</Name>
-      <FullPath>Dim Business Unit 1.dim</FullPath>
     </ProjectItem>
   </Dimensions>
   <DataSources>

@@ -2,7 +2,7 @@
 <RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="Instance">
   <ConnectionProperties>
     <Extension>SQL</Extension>
-    <ConnectString>Data Source=HPALBE\SQLEXPRESS19;Initial Catalog=Test21</ConnectString>
+    <ConnectString>Data Source=HPALBE\SQLDEV19;Initial Catalog=Otus_Project_2</ConnectString>
     <IntegratedSecurity>true</IntegratedSecurity>
   </ConnectionProperties>
   <DataSourceID>1e9f0ef7-b15f-495f-b3ba-b83f569b2538</DataSourceID>
