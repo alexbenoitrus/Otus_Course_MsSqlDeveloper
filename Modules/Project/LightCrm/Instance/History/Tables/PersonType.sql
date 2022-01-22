@@ -5,12 +5,14 @@
     [OldTypeId] BIGINT         NOT NULL,
     [NewTypeId] BIGINT         NOT NULL,
     [Reason]    NVARCHAR (MAX) NOT NULL,
-    CONSTRAINT [PK_Persontype] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_PersonType_Person] FOREIGN KEY ([PersonId]) REFERENCES [Org].[Person] ([Id]),
-    CONSTRAINT [FK_PersonType_Person_Changer] FOREIGN KEY ([ChangerId]) REFERENCES [Org].[Person] ([Id]),
-    CONSTRAINT [FK_PersonType_TypeNew] FOREIGN KEY ([NewTypeId]) REFERENCES [Org].[PersonType] ([Id]),
-    CONSTRAINT [FK_PersonType_TypeOld] FOREIGN KEY ([OldTypeId]) REFERENCES [Org].[PersonType] ([Id])
+    CONSTRAINT [PK_History_PersonType] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_History_PersonType_Person] FOREIGN KEY ([PersonId]) REFERENCES [Org].[Person] ([Id]),
+    CONSTRAINT [FK_History_PersonType_Person_Changer] FOREIGN KEY ([ChangerId]) REFERENCES [Org].[Person] ([Id]),
+    CONSTRAINT [FK_History_PersonType_TypeNew] FOREIGN KEY ([NewTypeId]) REFERENCES [Org].[PersonType] ([Id]),
+    CONSTRAINT [FK_History_PersonType_TypeOld] FOREIGN KEY ([OldTypeId]) REFERENCES [Org].[PersonType] ([Id])
 );
+
+
 
 
 GO

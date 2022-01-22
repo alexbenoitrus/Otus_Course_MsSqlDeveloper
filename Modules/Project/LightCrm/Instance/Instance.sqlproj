@@ -84,6 +84,12 @@
     <Folder Include="Report\Tables\" />
     <Folder Include="DWH\" />
     <Folder Include="DWH\Tables\" />
+    <Folder Include="UI\Stored Procedures\" />
+    <Folder Include="Log\Stored Procedures\" />
+    <Folder Include="TVP\" />
+    <Folder Include="TVP\User Defined Types\" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Sequences\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Catalog\Tables\ProductSpecialPriceLevel.sql" />
@@ -116,14 +122,10 @@
     <Build Include="Extension\Tables\Note.sql" />
     <Build Include="Org\Tables\Person.sql" />
     <Build Include="Extension\Tables\NoteAssign.sql" />
-    <Build Include="Event\Tables\EventStatus.sql" />
-    <Build Include="Event\Tables\EventType.sql" />
     <Build Include="Org\Tables\AdditionalBusinessUnit.sql" />
     <Build Include="Event\Tables\Event.sql" />
     <Build Include="Catalog\Tables\ProductMeasurementType.sql" />
     <Build Include="Catalog\Tables\ProductCatalogLevel.sql" />
-    <Build Include="Event\Tables\EventInviteStatusType.sql" />
-    <Build Include="Event\Tables\EventInvite.sql" />
     <Build Include="Catalog\Tables\Product.sql" />
     <Build Include="Event\Tables\ProductOnEvent.sql" />
     <Build Include="Log\Tables\Error.sql" />
@@ -142,7 +144,6 @@
     <Build Include="Security\Localization.sql" />
     <Build Include="Security\Log.sql" />
     <Build Include="Security\Org.sql" />
-    <Build Include="Security\Sales.sql" />
     <Build Include="Security\UI.sql" />
     <Build Include="Extension\Tables\FileHeader.sql" />
     <Build Include="Report\Tables\OrderLine.sql" />
@@ -153,5 +154,18 @@
     <Build Include="DWH\Tables\DimPerson.sql" />
     <Build Include="Security\DWH.sql" />
     <Build Include="DWH\Tables\DimDate.sql" />
+    <Build Include="Event\Tables\Type.sql" />
+    <Build Include="Event\Tables\Status.sql" />
+    <Build Include="Event\Tables\InviteType.sql" />
+    <Build Include="Event\Tables\InviteStatus.sql" />
+    <Build Include="Event\Tables\Invite.sql" />
+    <Build Include="UI\Stored Procedures\p_product_create.sql" />
+    <Build Include="UI\Stored Procedures\p_person_create.sql" />
+    <Build Include="UI\Stored Procedures\p_person_check_is_exist.sql" />
+    <Build Include="UI\Stored Procedures\p_person_check_is_employee.sql" />
+    <Build Include="UI\Stored Procedures\p_event_bind_product.sql" />
+    <Build Include="Log\Stored Procedures\p_error_save.sql" />
+    <Build Include="Security\TVP.sql" />
+    <Build Include="dbo\Sequences\OrderNumberSequence.sql" />
   </ItemGroup>
 </Project>

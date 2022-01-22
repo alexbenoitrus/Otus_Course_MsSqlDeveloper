@@ -4,9 +4,11 @@
     [Description] NVARCHAR (300) NOT NULL,
     [IsActive]    BIT            NOT NULL,
     [IsDefault]   BIT            NULL,
-    CONSTRAINT [PK_UserRole] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [UQ_UserRole_Name] UNIQUE NONCLUSTERED ([Name] ASC)
+    CONSTRAINT [PK_UI_UserRole] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_UI_UserRole_Name] UNIQUE NONCLUSTERED ([Name] ASC)
 );
+
+
 
 
 

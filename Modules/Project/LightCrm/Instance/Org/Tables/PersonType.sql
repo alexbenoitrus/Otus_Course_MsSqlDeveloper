@@ -5,8 +5,10 @@
     [IsActive]                BIT            NOT NULL,
     [IsDefault]               BIT            NULL,
     [BusinessDirectionTypeId] BIGINT         NOT NULL,
-    CONSTRAINT [PK_PersonType] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_PersonType_BusinessDirectionType] FOREIGN KEY ([BusinessDirectionTypeId]) REFERENCES [Org].[BusinessDirectionType] ([Id]),
-    CONSTRAINT [UQ_PersonType_Name] UNIQUE NONCLUSTERED ([Name] ASC)
+    CONSTRAINT [PK_Org_PersonType] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_Org_PersonType_BusinessDirectionType] FOREIGN KEY ([BusinessDirectionTypeId]) REFERENCES [Org].[BusinessDirectionType] ([Id]),
+    CONSTRAINT [UQ_Org_PersonType_Name] UNIQUE NONCLUSTERED ([Name] ASC)
 );
+
+
 

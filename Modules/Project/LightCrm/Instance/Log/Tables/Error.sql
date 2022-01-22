@@ -3,16 +3,26 @@
     [ProcedureName] NVARCHAR (300) NOT NULL,
     [ErrorCode]     INT            NOT NULL,
     [Parameters]    NVARCHAR (MAX) NOT NULL,
-    CONSTRAINT [PK_Error] PRIMARY KEY CLUSTERED ([Id] ASC)
+    [ErrorMessage]  NVARCHAR (MAX) NOT NULL,
+    [DateTime]      DATETIME2 (7)  NOT NULL,
+    CONSTRAINT [PK_Log_Error] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
 
+
+
+
+
 GO
-CREATE NONCLUSTERED INDEX [ix_Error_ProcedureName]
+
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_Log_Error_ProcedureName]
     ON [Log].[Error]([ProcedureName] ASC);
 
 
 GO
-CREATE NONCLUSTERED INDEX [ix_Error_ErrorCode]
+CREATE NONCLUSTERED INDEX [IX_Log_Error_ErrorCode]
     ON [Log].[Error]([ErrorCode] ASC);
 

@@ -4,9 +4,11 @@
     [Description] NVARCHAR (300) NOT NULL,
     [IsActive]    BIT            NOT NULL,
     [IsDefault]   BIT            NULL,
-    CONSTRAINT [PK_GenderType] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [UQ_GenderType_Name] UNIQUE NONCLUSTERED ([Name] ASC)
+    CONSTRAINT [PK_Org_GenderType] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_Org_GenderType_Name] UNIQUE NONCLUSTERED ([Name] ASC)
 );
+
+
 
 
 

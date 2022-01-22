@@ -33,6 +33,18 @@ INSERT [Org].[BusinessUnitType] ([Id], [Name], [Description], [IsActive], [IsDef
 GO
 SET IDENTITY_INSERT [Org].[BusinessUnitType] OFF
 GO
+SET IDENTITY_INSERT [Org].[BusinessUnit] ON 
+GO
+INSERT [Org].[BusinessUnit] ([Id], [ParentId], [AddressLevelId], [TypeId], [Name], [Description], [Icon], [ExternalId]) VALUES (1, NULL, NULL, 1, N'Сотрудники', N'Сотрудники', NULL, N'Сотрудники')
+GO
+INSERT [Org].[BusinessUnit] ([Id], [ParentId], [AddressLevelId], [TypeId], [Name], [Description], [Icon], [ExternalId]) VALUES (2, NULL, NULL, 2, N'Клиенты', N'Клиенты', NULL, N'Клиенты')
+GO
+INSERT [Org].[BusinessUnit] ([Id], [ParentId], [AddressLevelId], [TypeId], [Name], [Description], [Icon], [ExternalId]) VALUES (3, NULL, NULL, 3, N'Поставщики', N'Поставщики', NULL, N'Поставщики')
+GO
+INSERT [Org].[BusinessUnit] ([Id], [ParentId], [AddressLevelId], [TypeId], [Name], [Description], [Icon], [ExternalId]) VALUES (4, NULL, NULL, 4, N'Партнёры', N'Партнёры', NULL, N'Партнёры')
+GO
+SET IDENTITY_INSERT [Org].[BusinessUnit] OFF
+GO
 SET IDENTITY_INSERT [Org].[PersonType] ON 
 GO
 INSERT [Org].[PersonType] ([Id], [Name], [Description], [IsActive], [IsDefault], [BusinessDirectionTypeId]) VALUES (1, N'Руководитель', N'Руководитель', 1, NULL, 1)
@@ -73,39 +85,59 @@ INSERT [Communication].[Channel] ([Id], [Name], [Description], [Icon]) VALUES (6
 GO
 SET IDENTITY_INSERT [Communication].[Channel] OFF
 GO
-SET IDENTITY_INSERT [Event].[EventInviteStatusType] ON 
+SET IDENTITY_INSERT [Event].[InviteStatus] ON 
 GO
-INSERT [Event].[EventInviteStatusType] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (1, N'Отправлено', N'Отправлено', 1, 1)
+INSERT [Event].[InviteStatus] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (1, N'Отправлено', N'Отправлено', 1, 1)
 GO
-INSERT [Event].[EventInviteStatusType] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (2, N'Принято', N'Принято', 1, NULL)
+INSERT [Event].[InviteStatus] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (2, N'Принято', N'Принято', 1, NULL)
 GO
-INSERT [Event].[EventInviteStatusType] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (3, N'Отклонено', N'Отклонено', 1, NULL)
+INSERT [Event].[InviteStatus] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (3, N'Отклонено', N'Отклонено', 1, NULL)
 GO
-SET IDENTITY_INSERT [Event].[EventInviteStatusType] OFF
+SET IDENTITY_INSERT [Event].[InviteStatus] OFF
 GO
-SET IDENTITY_INSERT [Event].[EventStatus] ON 
+SET IDENTITY_INSERT [Event].[InviteType] ON 
 GO
-INSERT [Event].[EventStatus] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (1, N'Назначена', N'Назначена', 1, 1)
+INSERT [Event].[InviteType] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (1, N'Организатор', N'Организатор', 1, 1)
 GO
-INSERT [Event].[EventStatus] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (2, N'Отменена', N'Отменена', 1, NULL)
+INSERT [Event].[InviteType] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (2, N'Участник', N'Участник', 1, NULL)
 GO
-INSERT [Event].[EventStatus] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (3, N'В процессе', N'В процессе', 1, NULL)
+INSERT [Event].[InviteType] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (3, N'Продавец', N'Продавец', 1, NULL)
 GO
-INSERT [Event].[EventStatus] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (4, N'Завершена', N'Завершена', 1, NULL)
+INSERT [Event].[InviteType] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (4, N'Покупатель', N'Покупатель', 1, NULL)
 GO
-SET IDENTITY_INSERT [Event].[EventStatus] OFF
+SET IDENTITY_INSERT [Event].[InviteType] OFF
 GO
-SET IDENTITY_INSERT [Event].[EventType] ON 
+SET IDENTITY_INSERT [Event].[Status] ON 
 GO
-INSERT [Event].[EventType] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (1, N'Встреча', N'Встреча', 1, NULL)
+INSERT [Event].[Status] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (1, N'Назначена', N'Назначена', 1, 1)
 GO
-INSERT [Event].[EventType] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (2, N'Звонок', N'Звонок', 1, 1)
+INSERT [Event].[Status] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (2, N'Отменена', N'Отменена', 1, NULL)
 GO
-INSERT [Event].[EventType] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (3, N'Закупка', N'Закупка', 1, NULL)
+INSERT [Event].[Status] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (3, N'В процессе', N'В процессе', 1, NULL)
 GO
-INSERT [Event].[EventType] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (4, N'Продажа', N'Продажа', 1, NULL)
+INSERT [Event].[Status] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (4, N'Завершена', N'Завершена', 1, NULL)
 GO
-SET IDENTITY_INSERT [Event].[EventType] OFF
+INSERT [Event].[Status] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (5, N'Создана', N'Завершена', 1, NULL)
+GO
+INSERT [Event].[Status] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (6, N'Подтвержена', N'Подтвержена', 1, NULL)
+GO
+INSERT [Event].[Status] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (7, N'Оплачена', N'Подтвержена', 1, NULL)
+GO
+SET IDENTITY_INSERT [Event].[Status] OFF
+GO
+SET IDENTITY_INSERT [Event].[Type] ON 
+GO
+INSERT [Event].[Type] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (1, N'Встреча', N'Встреча', 1, NULL)
+GO
+INSERT [Event].[Type] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (2, N'Звонок', N'Звонок', 1, 1)
+GO
+INSERT [Event].[Type] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (3, N'Закупка', N'Закупка', 1, NULL)
+GO
+INSERT [Event].[Type] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (4, N'Продажа', N'Продажа', 1, NULL)
+GO
+INSERT [Event].[Type] ([Id], [Name], [Description], [IsActive], [IsDefault]) VALUES (5, N'Доставка', N'Доставка', 1, NULL)
+GO
+SET IDENTITY_INSERT [Event].[Type] OFF
 GO
 SET IDENTITY_INSERT [Org].[AddressLevelType] ON 
 GO
