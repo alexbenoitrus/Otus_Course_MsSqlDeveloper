@@ -4,9 +4,11 @@
     [Description] NVARCHAR (300) NOT NULL,
     [IsActive]    BIT            NOT NULL,
     [IsDefault]   BIT            NULL,
-    CONSTRAINT [PK_AddressLevelType] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [UQ_AddressLevelType_Name] UNIQUE NONCLUSTERED ([Name] ASC)
+    CONSTRAINT [PK_Org_AddressLevelType] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_Org_AddressLevelType_Name] UNIQUE NONCLUSTERED ([Name] ASC)
 );
+
+
 
 
 

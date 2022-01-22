@@ -4,9 +4,11 @@
     [Description] NVARCHAR (300) NOT NULL,
     [IsActive]    BIT            NOT NULL,
     [IsDefault]   BIT            NULL,
-    CONSTRAINT [PK_BusinessDirectionType] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [UQ_BusinessDirectionType_Name] UNIQUE NONCLUSTERED ([Name] ASC)
+    CONSTRAINT [PK_Org_BusinessDirectionType] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_Org_BusinessDirectionType_Name] UNIQUE NONCLUSTERED ([Name] ASC)
 );
+
+
 
 
 

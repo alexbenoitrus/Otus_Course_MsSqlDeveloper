@@ -4,7 +4,8 @@
     [Description] NVARCHAR (300) NOT NULL,
     [IsActive]    BIT            NOT NULL,
     [IsDefault]   BIT            NULL,
-    CONSTRAINT [PK_PresetType] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [UQ_PresetType_IsDefault] UNIQUE NONCLUSTERED ([IsDefault] ASC)
+    CONSTRAINT [PK_Configuration_PresetType] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+
 

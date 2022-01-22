@@ -9,3 +9,10 @@
     CONSTRAINT [CHK_DWH_DimDate_Year] CHECK ([Year]>=(1900) AND [Year]<=(2100))
 );
 
+
+
+
+GO
+CREATE NONCLUSTERED INDEX [FKIDX_DWH_DimDate_YearMonthDay]
+    ON [DWH].[DimDate]([Year] ASC, [Month] ASC, [Day] ASC);
+

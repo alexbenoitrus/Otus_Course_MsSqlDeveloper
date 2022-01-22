@@ -5,6 +5,8 @@
     [TableName]   NVARCHAR (100) NOT NULL,
     [EntityId]    BIGINT         NOT NULL,
     [Data]        NVARCHAR (MAX) NOT NULL,
-    CONSTRAINT [PK_BasePreset] PRIMARY KEY CLUSTERED ([Id] ASC)
+    CONSTRAINT [PK_Configuration_BasePreset] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+
 

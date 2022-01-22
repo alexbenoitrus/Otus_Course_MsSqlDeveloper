@@ -4,8 +4,9 @@
     [Description] NVARCHAR (300) NOT NULL,
     [IsActive]    BIT            NOT NULL,
     [IsDefault]   BIT            NULL,
-    CONSTRAINT [PK_ProductMeasurementType] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [UQ_ProductMeasurementType_IsDefault] UNIQUE NONCLUSTERED ([IsDefault] ASC),
-    CONSTRAINT [UQ_ProductMeasurementType_Name] UNIQUE NONCLUSTERED ([Name] ASC)
+    CONSTRAINT [PK_Catalog_ProductMeasurementType] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_Catalog_ProductMeasurementType_Name] UNIQUE NONCLUSTERED ([Name] ASC)
 );
+
+
 
