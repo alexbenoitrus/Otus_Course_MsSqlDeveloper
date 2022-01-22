@@ -24,6 +24,8 @@ CREATE SCHEMA [DWH]
 GO
 CREATE SCHEMA [TVP]
 GO
+CREATE SCHEMA [SB]
+GO
 ----------------------------------------------------------------
 
 CREATE FULLTEXT CATALOG [DefaultCatalog]
@@ -1152,10 +1154,12 @@ GO
 
 CREATE TABLE [Report].[Order]
 (
- [id]						BIGINT NOT NULL ,
+ [id]						BIGINT IDENTITY(1,1) NOT NULL ,
  [Date]						DATETIME2(7) NOT NULL ,
  [Sum]						DECIMAL(18,2) NOT NULL ,
  [Discount]					DECIMAL(18,2) NOT NULL ,
+ [EventId]					BIGINT NOT NULL,
+ [EventName]				NVARCHAR (100) NOT NULL,
  [SellerId]					BIGINT NOT NULL,
  [SellerBusinessUnitId]		BIGINT NOT NULL,
  [SellerFullName]			NVARCHAR (300) NOT NULL,
@@ -1167,6 +1171,7 @@ CREATE TABLE [Report].[Order]
 
  CONSTRAINT [PK_Report_Order] PRIMARY KEY CLUSTERED ([id] ASC),
  
+ --CONSTRAINT [FK_Report_Order_EventId] FOREIGN KEY (EventId)  REFERENCES [Event].[Event]([Id]),
  CONSTRAINT [FK_Report_Order_SellerId] FOREIGN KEY (SellerId)  REFERENCES [Org].[Person]([Id]),
  CONSTRAINT [FK_Report_Order_ClientId] FOREIGN KEY (ClientId)  REFERENCES [Org].[Person]([Id]),
  CONSTRAINT [FK_Report_Order_SellerBusinessUnitId] FOREIGN KEY ([SellerBusinessUnitId])  REFERENCES [Org].[BusinessUnit]([Id]),
@@ -1174,20 +1179,24 @@ CREATE TABLE [Report].[Order]
 );
 GO
 
+--CREATE NONCLUSTERED INDEX [FKIDX_Report_Order_EventId] ON [Report].[Order] ([EventId] ASC)
 CREATE NONCLUSTERED INDEX [FKIDX_Report_Order_SellerId] ON [Report].[Order] ([SellerId] ASC)
 CREATE NONCLUSTERED INDEX [FKIDX_Report_Order_ClientId] ON [Report].[Order] ([ClientId] ASC)
+CREATE NONCLUSTERED INDEX [FKIDX_Report_Order_SellerBusinessUnitId] ON [Report].[Order] ([SellerBusinessUnitId] ASC)
+CREATE NONCLUSTERED INDEX [FKIDX_Report_Order_ClientBusinessUnitId] ON [Report].[Order] ([ClientBusinessUnitId] ASC)
 GO
 
 ------------------------------------------------------------------
 
 CREATE TABLE [Report].[OrderLine]
 (
- [Id]			BIGINT NOT NULL ,
+ [Id]			BIGINT IDENTITY(1,1) NOT NULL ,
  [Name]			NVARCHAR(100) NOT NULL ,
- [Externalid]	NVARCHAR(50) NOT NULL ,
+ [Externalid]	NVARCHAR(50) ,
  [OrderId]		BIGINT NOT NULL ,
  [ProductId]	BIGINT NOT NULL ,
  [Count]		DECIMAL(18,3) NOT NULL ,
+ [Price]		DECIMAL(18,2) NOT NULL ,
  [Sum]			DECIMAL(18,2) NOT NULL ,
  [Discount]		DECIMAL(18,2) NOT NULL ,
 

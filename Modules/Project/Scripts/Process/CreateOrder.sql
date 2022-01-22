@@ -1,4 +1,5 @@
 -- Find data
+use Otus_Project_2
 
 SELECT * FROM [Org].[Person];
 SELECT * FROM [Catalog].[Product];
@@ -11,9 +12,9 @@ DECLARE
 	, @Seller BIGINT;
 
 -- INIT
-INSERT INTO @Products VALUES (4, 1);
+INSERT INTO @Products VALUES (2, 2), (1, 3), (3, 9);
 SET @Seller = 1;
-SET @Buyer = 5;
+SET @Buyer = 3;
 
 -- EXEC
 EXEC [UI].[p_order_create_instant]
@@ -46,3 +47,5 @@ SELECT 'New order ID' = @OrderId;
 ----- =(
 
 SELECT * FROM [Log].[Error]
+
+EXEC [SB].[p_OrderReport_Create_Send] 9

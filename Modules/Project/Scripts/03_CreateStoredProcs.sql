@@ -96,7 +96,6 @@ BEGIN
 		@OrderNumber BIGINT
 		, @Parameters NVARCHAR(MAX);
 
-	
 	SELECT @Parameters =
 	(
 		SELECT
@@ -219,13 +218,13 @@ BEGIN
 			INSERT INTO [Event].[Invite]
 				([EventId], [TypeId], [StatusId], [PersonId], [IsRequired])
 			VALUES
-				(@Id, 3, 2, @BuyerId, 1);
+				(@Id, 4, 2, @BuyerId, 1);
 
 			-- Added Seller
 			INSERT INTO [Event].[Invite]
 				([EventId], [TypeId], [StatusId], [PersonId], [IsRequired])
 			VALUES
-				(@Id, 4, 2, @SellerId, 1);
+				(@Id, 3, 2, @SellerId, 1);
 
 			-- Bind products
 			FETCH NEXT FROM ProductsCoursor INTO @ProductId, @Quantity;
@@ -246,6 +245,9 @@ BEGIN
 
 		CLOSE ProductsCoursor;
 		DEALLOCATE ProductsCoursor;
+
+		-- Send to create report
+		-- EXEC [SB].[p_OrderReport_Create_Send] @Id
 
 	END TRY
 	BEGIN CATCH
@@ -373,5 +375,314 @@ BEGIN
 		   )
 
 	SET @Id = @@IDENTITY;
+END
+
+
+CREATE PROCEDURE [Report].[p_OrderReport_Create]
+(	
+	@EventId BIGINT
+)
+AS
+BEGIN
+	DECLARE @Parameters NVARCHAR(MAX);
+	SELECT @Parameters =
+	(
+		SELECT
+			@EventId as EventId
+		FOR
+		XML PATH('')
+	);
+
+	BEGIN TRY
+		DECLARE	
+			  @OrderId BIGINT
+			, @SellerId BIGINT
+			, @ClientId BIGINT
+			
+		    , @Date datetime2(7)
+		    , @Sum decimal(18,2) = 0
+
+		    , @EventName nvarchar(300)
+		
+		    , @SellerBusinessUnitId bigint
+		    , @SellerFullName nvarchar(300)
+		    , @SellerBusinessUnitName nvarchar(100)
+		
+		    , @ClientBusinessUnitId bigint
+		    , @ClientFullName nvarchar(300)
+		    , @ClientBusinessUnitName nvarchar(100);
+			
+		--- Fill fields
+		SELECT 
+			@Date = e.[EndOn]
+			, @EventName = e.[Name]
+		FROM 
+			[Event].[Event] e WITH(NOLOCK)
+		WHERE
+			e.[Id] = @EventId
+			
+		SELECT 
+			@ClientId = i.[PersonId] 
+			, @ClientBusinessUnitId = p.[BusinessUnitId]
+			, @ClientBusinessUnitName = bu.[Name]
+			, @ClientFullName = TRIM(CONCAT(p.[LastName], ' ', p.[FirstName], ' ', p.[MiddleName]))
+		FROM 
+			[Event].[Invite] i WITH(NOLOCK) 
+			JOIN [Org].[Person] p WITH(NOLOCK) ON p.[Id] = i.[PersonId]
+			JOIN [Org].[BusinessUnit] bu WITH(NOLOCK) ON bu.[Id] = p.[BusinessUnitId]
+		WHERE 1=1
+			AND i.[EventId] = @EventId 
+			AND i.[TypeId] = 4
+		
+			
+		SELECT 
+			@SellerId = i.[PersonId] 
+			, @SellerBusinessUnitId = p.[BusinessUnitId]
+			, @SellerBusinessUnitName = bu.[Name]
+			, @SellerFullName = TRIM(CONCAT(p.[LastName], ' ', p.[FirstName], ' ', p.[MiddleName]))
+		FROM 
+			[Event].[Invite] i WITH(NOLOCK) 
+			JOIN [Org].[Person] p WITH(NOLOCK) ON p.[Id] = i.[PersonId]
+			JOIN [Org].[BusinessUnit] bu WITH(NOLOCK) ON bu.[Id] = p.[BusinessUnitId]
+		WHERE 1=1
+			AND i.[EventId] = @EventId 
+			AND i.[TypeId] = 3
+
+		-- Create order
+		INSERT INTO [Report].[Order]
+		(
+			  [Date]
+			, [Sum]
+			, [Discount]
+			, [EventId]				
+			, [EventName]			
+			, [SellerId]
+			, [SellerBusinessUnitId]
+			, [SellerFullName]
+			, [SellerBusinessUnitName]
+			, [ClientId]
+			, [ClientBusinessUnitId]
+			, [ClientFullName]
+			, [ClientBusinessUnitName]
+		)
+		   VALUES
+		   (
+			  @Date
+			, @Sum
+			, 0
+			, @EventId
+			, @EventName
+			, @SellerId
+			, @SellerBusinessUnitId
+			, @SellerFullName
+			, @SellerBusinessUnitName
+			, @ClientId
+			, @ClientBusinessUnitId
+			, @ClientFullName
+			, @ClientBusinessUnitName
+		);
+		
+		SET @OrderId = @@IDENTITY
+		
+		-- Create lines
+		INSERT INTO [Report].[OrderLine]
+		(
+			  [Name]
+			, [Externalid]
+			, [OrderId]
+			, [ProductId]
+			, [Count]
+			, [Price]
+			, [Sum]
+			, [Discount]
+		)
+		SELECT 
+			  p.[Name]
+			, p.[ExternalId]
+			, @OrderId
+			, p.[Id]
+			, poe.Quantity
+			, p.[Price]
+			, poe.Quantity * p.[Price]
+			, 0
+		FROM 
+			[Event].[ProductOnEvent] poe WITH(NOLOCK)
+			JOIN [Catalog].[Product] p WITH(NOLOCK) ON p.[Id] = poe.[ProductId]
+		WHERE 
+			poe.[EventId] = @EventId
+
+		-- Calculate order sum
+		SELECT 
+			@Sum = SUM(l.[Sum])
+		FROM 
+			[Report].[OrderLine] l WITH(NOLOCK)
+		GROUP BY 
+			l.[OrderId]
+		HAVING 
+			l.[OrderId] = @OrderId
+
+		UPDATE [Report].[Order]
+		SET [Sum] = @Sum
+		WHERE [Id] = @OrderId
+
+	END TRY
+	BEGIN CATCH
+		
+		DECLARE
+			@ErrorNumber   int = error_number()
+			, @ErrorSeverity int = error_severity()
+			, @ErrorState    int = error_state();
+
+		EXEC [Log].[p_error_save] '[Report].[p_OrderReport_Create]', @ErrorNumber, @Parameters;
+		raiserror(@ErrorNumber, @ErrorSeverity, @ErrorState);
+
+	END CATCH
+END;
+GO
+
+CREATE PROCEDURE [SB].[p_OrderReport_Create_Send]
+(	
+	@EventId BIGINT
+)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	DECLARE 
+		  @InitDlgHandle UNIQUEIDENTIFIER
+		, @RequestMessage NVARCHAR(4000);
+	
+	BEGIN TRY
+		BEGIN TRAN
+		
+			SELECT @RequestMessage = 
+				(
+					SELECT @EventId AS EventId
+					FOR XML PATH('RequestMessage')
+				); 
+		
+			BEGIN DIALOG @InitDlgHandle
+			FROM SERVICE [//WWI/SB/CreateOrderReportInitiatorService]
+			TO SERVICE '//WWI/SB/CreateOrderReportTargetService'
+			ON CONTRACT	[//WWI/SB/CreateOrderReportContract]
+			WITH ENCRYPTION=OFF; 
+
+			SEND ON CONVERSATION @InitDlgHandle 
+			MESSAGE TYPE [//WWI/SB/CreateOrderReportRequestMessage] (@RequestMessage);
+		COMMIT TRAN 
+		
+	END TRY
+	BEGIN CATCH
+
+		DECLARE
+			@ErrorNumber   int = error_number()
+			, @ErrorSeverity int = error_severity()
+			, @ErrorState    int = error_state();
+			
+		EXEC [Log].[p_error_save] '[SB].[p_OrderReport_Create_Send]', @@ERROR, Null
+		raiserror(@ErrorNumber, @ErrorSeverity, @ErrorState);
+
+	END CATCH
+END
+GO
+
+alter PROCEDURE [SB].[p_OrderReport_Create_Recieve]
+AS
+BEGIN
+	BEGIN TRY
+
+		DECLARE 
+			  @TargetDlgHandle UNIQUEIDENTIFIER
+			, @EventId BIGINT
+			, @Message NVARCHAR(4000)
+			, @MessageType Sysname
+			, @ReplyMessage NVARCHAR(4000)
+			, @ReplyMessageName Sysname
+			, @Xml XML; 
+		
+		BEGIN TRAN; 
+
+		--Receive
+		RECEIVE TOP(1)
+			@TargetDlgHandle = Conversation_Handle,
+			@Message = Message_Body,
+			@MessageType = Message_Type_Name
+		FROM 
+			dbo.CreateOrderReportTargetQueueWWI; 
+
+		-- Parse
+		
+		SET @Xml = CAST(@Message AS XML);
+
+		SELECT 
+			@EventId = R.Iv.value('@EventId','BIGINT')
+		FROM 
+			@Xml.nodes('/RequestMessage/EventId') as R(Iv);
+
+		-- Process
+		EXEC [Report].[p_OrderReport_Create] @EventId;
+
+		-- Confirm
+		IF @MessageType=N'//WWI/SB/CreateOrderReportRequestMessage'
+		BEGIN
+			SELECT @ReplyMessage = 
+				(
+					SELECT 0 AS ResultCode
+					FOR XML PATH('ResponseMessage')
+				); 
+		
+			SEND ON CONVERSATION @TargetDlgHandle
+			MESSAGE TYPE [//WWI/SB/CreateOrderReportReplyMessage] (@ReplyMessage);
+			END CONVERSATION @TargetDlgHandle;
+		END 
+
+		COMMIT TRAN;
+
+	END TRY
+	BEGIN CATCH
+
+		DECLARE
+			@ErrorNumber   int = error_number()
+			, @ErrorSeverity int = error_severity()
+			, @ErrorState    int = error_state();
+			
+		EXEC [Log].[p_error_save] '[SB].[p_OrderReport_Create_Recieve]', @@ERROR, NULL
+		raiserror(@ErrorNumber, @ErrorSeverity, @ErrorState);
+
+	END CATCH
+END
+GO
+
+alter PROCEDURE [SB].[p_OrderReport_Create_Confirm]
+AS
+BEGIN
+	BEGIN TRY
+		DECLARE 
+			  @InitiatorReplyDlgHandle UNIQUEIDENTIFIER
+			, @ReplyReceivedMessage NVARCHAR(1000) 
+		
+		BEGIN TRAN; 
+
+			RECEIVE TOP(1)
+				  @InitiatorReplyDlgHandle = Conversation_Handle
+				, @ReplyReceivedMessage = Message_Body
+			FROM 
+				dbo.CreateOrderReportInitiatorQueueWWI; 
+			
+			END CONVERSATION @InitiatorReplyDlgHandle; 
+
+		COMMIT TRAN; 
+
+	END TRY
+	BEGIN CATCH
+
+		DECLARE
+			@ErrorNumber   int = error_number()
+			, @ErrorSeverity int = error_severity()
+			, @ErrorState    int = error_state();
+			
+		EXEC [Log].[p_error_save] '[SB].[p_OrderReport_Create_Confirm]', @@ERROR, NULL
+		raiserror(@ErrorNumber, @ErrorSeverity, @ErrorState);
+
+	END CATCH
 END
 GO
