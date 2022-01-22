@@ -12,3 +12,10 @@
 
 
 
+
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_Org_BusinessDirectionType_IsDefault]
+    ON [Org].[BusinessDirectionType]([IsDefault] ASC) WHERE ([IsDefault] IS NOT NULL);
+

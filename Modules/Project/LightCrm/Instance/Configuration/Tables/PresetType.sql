@@ -9,3 +9,10 @@
 
 
 
+
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_Configuration_PresetType_IsDefault]
+    ON [Configuration].[PresetType]([IsDefault] ASC) WHERE ([IsDefault] IS NOT NULL);
+

@@ -45,6 +45,14 @@ BEGIN
 			)
 	END TRY
 	BEGIN CATCH
+
+		DECLARE
+			@ErrorNumber   int = error_number()
+			, @ErrorSeverity int = error_severity()
+			, @ErrorState    int = error_state();
+			
 		EXEC [Log].[p_error_save] '[UI].[p_event_bind_product]', @@ERROR, @Parameters
+		raiserror(@ErrorNumber, @ErrorSeverity, @ErrorState);
+
 	END CATCH
 END

@@ -8,3 +8,10 @@
     CONSTRAINT [UQ_Event_InviteType_Name] UNIQUE NONCLUSTERED ([Name] ASC)
 );
 
+
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_Event_InviteType_IsDefault]
+    ON [Event].[InviteType]([IsDefault] ASC) WHERE ([IsDefault] IS NOT NULL);
+

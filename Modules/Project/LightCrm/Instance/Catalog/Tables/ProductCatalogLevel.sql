@@ -1,4 +1,4 @@
-CREATE TABLE [Catalog].[ProductCatalogLevel] (
+﻿CREATE TABLE [Catalog].[ProductCatalogLevel] (
     [Id]          BIGINT         IDENTITY (1, 1) NOT NULL,
     [ParentId]    BIGINT         NULL,
     [Name]        NVARCHAR (100) NOT NULL,
@@ -7,9 +7,10 @@ CREATE TABLE [Catalog].[ProductCatalogLevel] (
     [ExternalId]  NVARCHAR (50)  NULL,
     CONSTRAINT [PK_Catalog_ProductCatalogLevel] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_Catalog_ProductCatalogLevel_ProductCatalogLevel] FOREIGN KEY ([ParentId]) REFERENCES [Catalog].[ProductCatalogLevel] ([Id]),
-    CONSTRAINT [UQ_Catalog_ProductCatalogLevel_ExternalId] UNIQUE NONCLUSTERED ([ExternalId] ASC),
     CONSTRAINT [UQ_Catalog_ProductCatalogLevel_Name_ParentId] UNIQUE NONCLUSTERED ([Name] ASC, [ParentId] ASC)
 );
+
+
 
 
 
@@ -37,4 +38,9 @@ GO
 CREATE NONCLUSTERED INDEX [FKIDX_Catalog_ProductCatalogLevel_ParendId]
     ON [Catalog].[ProductCatalogLevel]([ParentId] ASC)
     INCLUDE([Name]);
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_Catalog_ProductCatalogLevel_ExternalId]
+    ON [Catalog].[ProductCatalogLevel]([ExternalId] ASC) WHERE ([ExternalId] IS NOT NULL);
 

@@ -2,11 +2,13 @@
     [Id]            BIGINT         IDENTITY (1, 1) NOT NULL,
     [ProcedureName] NVARCHAR (300) NOT NULL,
     [ErrorCode]     INT            NOT NULL,
-    [Parameters]    NVARCHAR (MAX) NOT NULL,
     [ErrorMessage]  NVARCHAR (MAX) NOT NULL,
+    [Parameters]    NVARCHAR (MAX) NOT NULL,
     [DateTime]      DATETIME2 (7)  NOT NULL,
     CONSTRAINT [PK_Log_Error] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+
 
 
 

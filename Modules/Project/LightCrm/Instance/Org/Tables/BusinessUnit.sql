@@ -1,4 +1,4 @@
-CREATE TABLE [Org].[BusinessUnit] (
+﻿CREATE TABLE [Org].[BusinessUnit] (
     [Id]             BIGINT         IDENTITY (1, 1) NOT NULL,
     [ParentId]       BIGINT         NULL,
     [AddressLevelId] BIGINT         NULL,
@@ -11,9 +11,10 @@ CREATE TABLE [Org].[BusinessUnit] (
     CONSTRAINT [FK_Org_BusinessUnit_AddressLevel] FOREIGN KEY ([AddressLevelId]) REFERENCES [Org].[AddressLevel] ([Id]),
     CONSTRAINT [FK_Org_BusinessUnit_BusinessUnit] FOREIGN KEY ([ParentId]) REFERENCES [Org].[BusinessUnit] ([Id]),
     CONSTRAINT [FK_Org_BusinessUnit_BusinessUnitType] FOREIGN KEY ([TypeId]) REFERENCES [Org].[BusinessUnitType] ([Id]),
-    CONSTRAINT [UQ_Org_BusinessUnit_ExternalId] UNIQUE NONCLUSTERED ([ExternalId] ASC),
     CONSTRAINT [UQ_Org_BusinessUnit_Name_ParentId] UNIQUE NONCLUSTERED ([Name] ASC, [ParentId] ASC)
 );
+
+
 
 
 
@@ -51,4 +52,9 @@ GO
 CREATE NONCLUSTERED INDEX [FKIDX_Org_BusinessUnit_AddressLevelId]
     ON [Org].[BusinessUnit]([AddressLevelId] ASC)
     INCLUDE([Name]);
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_Org_BusinessUnit_ExternalId]
+    ON [Org].[BusinessUnit]([ExternalId] ASC) WHERE ([ExternalId] IS NOT NULL);
 

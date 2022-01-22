@@ -1,4 +1,4 @@
-CREATE TABLE [Communication].[ChannelIdentificatorForBusinessUnit] (
+﻿CREATE TABLE [Communication].[ChannelIdentificatorForBusinessUnit] (
     [Id]                   BIGINT         IDENTITY (1, 1) NOT NULL,
     [BusinessUnitId]       BIGINT         NOT NULL,
     [ChannelId]            BIGINT         NOT NULL,
@@ -11,10 +11,10 @@ CREATE TABLE [Communication].[ChannelIdentificatorForBusinessUnit] (
     CONSTRAINT [PK_Communication_ChannelIdentificatorForBusinessUnit] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_Communication_ChannelIdentificatorForBusinessUnit_BusinessUnit] FOREIGN KEY ([BusinessUnitId]) REFERENCES [Org].[BusinessUnit] ([Id]),
     CONSTRAINT [FK_Communication_ChannelIdentificatorForBusinessUnit_Channel] FOREIGN KEY ([ChannelId]) REFERENCES [Communication].[Channel] ([Id]),
-    CONSTRAINT [UQ_Communication_ChannelIdentificatorForBusinessUnit_BusinessUnitId_ChannelId_Identificator] UNIQUE NONCLUSTERED ([BusinessUnitId] ASC, [ChannelId] ASC, [Identificator] ASC),
-    CONSTRAINT [UQ_Communication_ChannelIdentificatorForBusinessUnit_BusinessUnitId_ChannelId_IsPriorityForChannel] UNIQUE NONCLUSTERED ([BusinessUnitId] ASC, [ChannelId] ASC, [IsPriorityForChannel] ASC),
-    CONSTRAINT [UQ_Communication_ChannelIdentificatorForBusinessUnit_BusinessUnitId_IsMain] UNIQUE NONCLUSTERED ([BusinessUnitId] ASC, [IsMain] ASC)
+    CONSTRAINT [UQ_Communication_ChannelIdentificatorForBusinessUnit_BusinessUnitId_ChannelId_Identificator] UNIQUE NONCLUSTERED ([BusinessUnitId] ASC, [ChannelId] ASC, [Identificator] ASC)
 );
+
+
 
 
 
@@ -31,4 +31,14 @@ CREATE NONCLUSTERED INDEX [IX_Communication_ChannelIdentificatorForBusinessUnit_
 GO
 CREATE NONCLUSTERED INDEX [FKIDX_Communication_ChannelIdentificatorForBusinessUnit_BusinessUnitId]
     ON [Communication].[ChannelIdentificatorForBusinessUnit]([BusinessUnitId] ASC);
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_Communication_ChannelIdentificatorForBusinessUnit_BusinessUnitId_IsMain]
+    ON [Communication].[ChannelIdentificatorForBusinessUnit]([BusinessUnitId] ASC, [IsMain] ASC) WHERE ([IsMain] IS NOT NULL);
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_Communication_ChannelIdentificatorForBusinessUnit_BusinessUnitId_ChannelId_IsPriorityForChannel]
+    ON [Communication].[ChannelIdentificatorForBusinessUnit]([BusinessUnitId] ASC, [ChannelId] ASC, [IsPriorityForChannel] ASC) WHERE ([IsPriorityForChannel] IS NOT NULL);
 

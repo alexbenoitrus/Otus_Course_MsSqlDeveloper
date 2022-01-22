@@ -1,0 +1,3 @@
+﻿CREATE QUEUE [dbo].[CreateOrderReportInitiatorQueueWWI]
+    WITH POISON_MESSAGE_HANDLING(STATUS = OFF), ACTIVATION (STATUS = ON, PROCEDURE_NAME = [SB].[p_OrderReport_Create_Confirm], MAX_QUEUE_READERS = 1, EXECUTE AS OWNER);
+

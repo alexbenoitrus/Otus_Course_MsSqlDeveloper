@@ -12,3 +12,10 @@
 
 
 
+
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_UI_UserRole_IsDefault]
+    ON [UI].[UserRole]([IsDefault] ASC) WHERE ([IsDefault] IS NOT NULL);
+

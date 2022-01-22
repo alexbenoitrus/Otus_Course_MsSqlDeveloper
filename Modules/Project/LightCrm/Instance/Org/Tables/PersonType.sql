@@ -12,3 +12,10 @@
 
 
 
+
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_Org_PersonType_IsDefault]
+    ON [Org].[PersonType]([IsDefault] ASC) WHERE ([IsDefault] IS NOT NULL);
+

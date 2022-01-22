@@ -1,0 +1,4 @@
+﻿CREATE MESSAGE TYPE [//WWI/SB/CreateOrderReportReplyMessage]
+    AUTHORIZATION [dbo]
+    VALIDATION = WELL_FORMED_XML;
+

@@ -10,3 +10,10 @@
 
 
 
+
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_Catalog_ProductMeasurementType_IsDefault]
+    ON [Catalog].[ProductMeasurementType]([IsDefault] ASC) WHERE ([IsDefault] IS NOT NULL);
+

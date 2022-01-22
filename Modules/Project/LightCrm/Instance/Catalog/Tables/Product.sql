@@ -1,6 +1,6 @@
-CREATE TABLE [Catalog].[Product] (
+﻿CREATE TABLE [Catalog].[Product] (
     [Id]                      BIGINT          IDENTITY (1, 1) NOT NULL,
-    [Price]                   DECIMAL (18, 2) NULL,
+    [Price]                   DECIMAL (18, 2) NOT NULL,
     [CatalogLevelId]          BIGINT          NULL,
     [MeasurementTypeId]       BIGINT          NOT NULL,
     [Name]                    NVARCHAR (100)  NOT NULL,
@@ -15,6 +15,8 @@ CREATE TABLE [Catalog].[Product] (
     CONSTRAINT [FK_Catalog_Product_ProductMeasurementType] FOREIGN KEY ([MeasurementTypeId]) REFERENCES [Catalog].[ProductMeasurementType] ([Id]),
     CONSTRAINT [UQ_Catalog_Product_Name_ParentId_BusinessDirectionTypeId_MeasurementTypeId] UNIQUE NONCLUSTERED ([Name] ASC, [CatalogLevelId] ASC, [BusinessDirectionTypeId] ASC, [MeasurementTypeId] ASC)
 );
+
+
 
 
 

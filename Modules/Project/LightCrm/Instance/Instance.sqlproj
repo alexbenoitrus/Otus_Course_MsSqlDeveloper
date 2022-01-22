@@ -90,6 +90,10 @@
     <Folder Include="TVP\User Defined Types\" />
     <Folder Include="dbo\" />
     <Folder Include="dbo\Sequences\" />
+    <Folder Include="Report\Stored Procedures\" />
+    <Folder Include="SB\" />
+    <Folder Include="SB\Stored Procedures\" />
+    <Folder Include="Service Broker\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Catalog\Tables\ProductSpecialPriceLevel.sql" />
@@ -167,5 +171,20 @@
     <Build Include="Log\Stored Procedures\p_error_save.sql" />
     <Build Include="Security\TVP.sql" />
     <Build Include="dbo\Sequences\OrderNumberSequence.sql" />
+    <Build Include="UI\Stored Procedures\p_order_create_instant.sql" />
+    <Build Include="Report\Stored Procedures\p_OrderReport_Create.sql" />
+    <Build Include="Report\Stored Procedures\p_Order_GetByBusinessUnit.sql" />
+    <Build Include="SB\Stored Procedures\p_OrderReport_Create_Confirm.sql" />
+    <Build Include="SB\Stored Procedures\p_OrderReport_Create_Recieve.sql" />
+    <Build Include="SB\Stored Procedures\p_OrderReport_Create_Send.sql" />
+    <Build Include="Security\SB.sql" />
+    <Build Include="TVP\User Defined Types\ProductList.sql" />
+    <Build Include="Service Broker\__WWI_SB_CreateOrderReportContract.sql" />
+    <Build Include="Service Broker\__WWI_SB_CreateOrderReportRequestMessage.sql" />
+    <Build Include="Service Broker\__WWI_SB_CreateOrderReportReplyMessage.sql" />
+    <Build Include="Service Broker\CreateOrderReportTargetQueueWWI.sql" />
+    <Build Include="Service Broker\CreateOrderReportInitiatorQueueWWI.sql" />
+    <Build Include="Service Broker\__WWI_SB_CreateOrderReportTargetService.sql" />
+    <Build Include="Service Broker\__WWI_SB_CreateOrderReportInitiatorService.sql" />
   </ItemGroup>
 </Project>
